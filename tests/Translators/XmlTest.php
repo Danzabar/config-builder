@@ -46,7 +46,8 @@ class XmlTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		$this->xml = new Xml($this->data);
+		$this->xml = new Xml();
+		$this->xml->load($this->data);
 	}
 
 	/**
@@ -60,7 +61,8 @@ class XmlTest extends \PHPUnit_Framework_TestCase
 		// The array is valid
 		$this->assertTrue( $this->xml->validate() );
 		
-		$check = new Xml($this->xml->translate());
+		$check = new Xml();
+		$check->load($this->xml->translate());
 		
 		$this->assertTrue( $check->validateNative() );	
 	}
@@ -73,10 +75,12 @@ class XmlTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_translateNative()
 	{
-		$php = new Xml($this->xml->translate());
-		
+		$php = new Xml();
+		$php->load($this->xml->translate());
+
 		// Is it valid xml
-		$check = new Xml($php->translateNative());
+		$check = new Xml();
+		$check->load($php->translateNative());
 
 		$this->assertTrue( $check->validate() );
 		

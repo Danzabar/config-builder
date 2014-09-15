@@ -36,7 +36,8 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->data = array('basic', 'array' => array('multi', 'level'), 'test' => 'test');
 
-		$this->yaml = new YAML($this->data);
+		$this->yaml = new YAML();
+		$this->yaml->load($this->data);
 	}
 
 	/**
@@ -51,7 +52,8 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue( $this->yaml->validate() );
 
 		// The result is valid yaml
-		$check = new YAML( $this->yaml->translate() );
+		$check = new YAML();
+		$check->load( $this->yaml->translate() );
 
 		$this->assertTrue( $check->validateNative() );
 	}
@@ -64,7 +66,8 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_translateNative()
 	{
-		$php = new YAML($this->yaml->translate());
+		$php = new YAML();
+		$php->load($this->yaml->translate());
 
 		// It is valid yaml
 		$this->assertTrue( $php->validateNative() );

@@ -41,7 +41,9 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		$this->json = new Json($this->data);	
+		$this->json = new Json();	
+
+		$this->json->load($this->data);
 	}
 		
 	/**
@@ -52,7 +54,6 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_basic()
 	{
-		
 		// This is a valid array so it should validate.
 		$this->assertEquals( $this->json->validate(), TRUE);
 
@@ -68,7 +69,7 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	 * @author Dan Cox
 	 */
 	public function test_jsonReturn()
-	{
+	{	
 		$our_json = json_encode($this->data, JSON_PRETTY_PRINT);
 
 		$this->assertEquals($this->json->translate(), $our_json);
@@ -82,8 +83,12 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_BadArrayValidation()
 	{
-		$test1 = new Json('Passing String');
-		$test2 = new Json((object) array('passing', 'object'));
+		$test1 = new Json();
+		$test2 = new Json();
+		
+		// Load data
+		$test1->load('Passing String');
+		$test2->load((object) array('passing', 'object'));
 
 		$this->assertFalse( $test1->validate() );
 		$this->assertFalse( $test2->validate() );
@@ -97,7 +102,8 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_nativeTranslate()
 	{
-		$php = new Json($this->json->translate());
+		$php = new Json();
+		$php->load($this->json->translate());
 
 		$this->assertTrue( $php->validateNative() );
 		$this->assertEquals($this->data, $php->translateNative());
@@ -113,7 +119,8 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	{
 		$badJson = "{'bad':'json',}";	
 
-		$php = new Json($badJson);
+		$php = new Json();
+		$php->load($badJson);
 
 		$this->assertFalse( $php->validateNative() );
 	}

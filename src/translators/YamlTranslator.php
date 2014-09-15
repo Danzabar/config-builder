@@ -26,7 +26,7 @@ class YamlTranslator implements Translator
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($data)
+	public function load($data)
 	{
 		$this->data = $data;
 	}

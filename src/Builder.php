@@ -47,11 +47,11 @@ class Builder
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($directory, $chmod = '0755')
+	public function __construct($directory, $chmod = '0755', $fs = NULL)
 	{
 		$this->directory = $directory;
 		
-		$this->fs = new FileSystem;
+		$this->fs = (!is_null($fs) ? $fs : new FileSystem);
 		
 		// If this directory does not exist, create it
 		if(!$this->fs->exists($this->directory))
@@ -82,8 +82,12 @@ class Builder
 		{
 			try
 			{
+					
+				
 				$this->fs->dumpFile($file.'.'.$options['extension'], '');
+
 			} catch(Exception $e) {
+					
 				$this->errors[] = array('file' => $file, 'message' => $e->getMessage());
 			}
 		}

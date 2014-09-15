@@ -10,6 +10,14 @@ interface Translator
 {
 	
 	/**
+	 * Loads the mixed data
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function load($data);
+
+	/**
 	 * Validates the array thats passed to it.
 	 *
 	 * @return Boolean
