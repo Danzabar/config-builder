@@ -14,6 +14,9 @@
 		"symfony/filesystem": "2.6.*@dev",
 		"symfony/yaml": "2.6.*@dev"
 	},
+	"require-dev": {
+		"satooshi/php-coveralls": "dev-master"	
+	},
 	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {

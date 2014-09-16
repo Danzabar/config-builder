@@ -1,4 +1,4 @@
-<?php require_once dirname(__DIR__) . '/environment.php';
+<?php 
 
 use Danzabar\Config\Translators\YamlTranslator as YAML;
 
