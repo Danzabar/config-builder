@@ -83,7 +83,7 @@ class Builder
 			try
 			{
 					
-				
+								
 				$this->fs->dumpFile($file.'.'.$options['extension'], '');
 
 			} catch(Exception $e) {
