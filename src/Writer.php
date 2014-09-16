@@ -108,7 +108,7 @@ class Writer
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
-	public function writeTo()
+	public function dump()
 	{
 		$this->translator->load($this->data);
 

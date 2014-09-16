@@ -2,6 +2,8 @@
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Danzabar\Config\Writer;
+
 
 /**
  * The builder class focuses on creating the various formats of files.
@@ -70,7 +72,7 @@ class Builder
 	{
 		if(!is_array($files))
 		{
-			$this->files[] = array($files => array('extension' => $extension, 'data' => $data);
+			$this->files[$files] = array('extension' => $extension, 'data' => $data);
 		}
 		else {
 			
@@ -82,9 +84,9 @@ class Builder
 		{
 			try
 			{
-					
+				$writer = new Writer($options['extension'], $options['data']);			
 								
-				$this->fs->dumpFile($file.'.'.$options['extension'], '');
+				$this->fs->dumpFile($this->directory . $file . '.' . $options['extension'], $writer->dump());
 
 			} catch(Exception $e) {
 					
@@ -105,20 +107,37 @@ class Builder
 	}
 
 	/**
+	 * Gets the files currently stored in the class var
+	 *
+	 * @return array
+	 * @author Dan Cox
+	 */
+	public function getFiles()
+	{
+		return $this->files;
+	}
+
+	/**
 	 * Loops through array of files and gets them ready for file creation function
 	 *
 	 * @return array
 	 * @author Dan Cox
 	 */
-	private function cleanse($files)
+	public function cleanse($files)
 	{
 		foreach($files as $file => $options)
 		{
-			$this->files[] = array(
-				$file => array(
-				'extension' => (isset($options['extension']) ? $options['extension'] : 'json'),
-				'data' => (isset($options['data']) ? $options['data'] : array())
-			));
+			if(is_numeric($file) && is_string($options))
+			{
+				$this->files[$options] = array('extension' => 'json', 'data' => array());
+			}
+			else {
+					
+				$this->files[$file] = array(
+					'extension' => (isset($options['extension']) ? $options['extension'] : 'json'),
+					'data' => (isset($options['data']) ? $options['data'] : array())
+				);
+			}
 		}
 	}
 
