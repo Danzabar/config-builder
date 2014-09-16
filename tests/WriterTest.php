@@ -69,4 +69,24 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($writer->getData(), Array('valid' => 'json', 'more' => 'value'));
 	}
 
+	/**
+	 * Test the replace function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_replace()
+	{
+		$writer = new Writer('json');
+		
+		$writer->load(Array('multi' => array('level', 'array'), 'test2' => 'level'));
+
+		$writer->replace('level', 'pass');
+
+		$test = $writer->getData();
+
+		$this->assertTrue( !in_array('level', $test) );
+		$this->assertTrue( !in_array('level', $test['multi']) );
+	}
+
 } // END class WriterTest extends \PHPUnit_Framework_TestCase

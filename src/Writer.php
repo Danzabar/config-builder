@@ -65,6 +65,22 @@ class Writer
 	}
 
 	/**
+	 * Replaces values in the data array or in the data var passed
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function replace($match, $replacement = '', $data = NULL)
+	{
+		if(!is_null($data))
+		{
+			$this->data = $data;
+		}
+		
+		$this->data = $this->recursiveReplace($match, $replacement, $this->data);		
+	}
+
+	/**
 	 * Append data to the data variable
 	 *
 	 * @return void
@@ -125,6 +141,23 @@ class Writer
 	public function getData()
 	{
 		return $this->data;
+	}
+	
+	/**
+	 * Recursively replaces array values.
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	private function recursiveReplace($match, $replacement, $data)
+	{
+		$json = json_encode($data);
+		
+		$json = str_replace($match, $replacement, $json);
+		
+		$arr = json_decode($json, TRUE);
+
+		return $arr;
 	}
 
 } // END class Writer
