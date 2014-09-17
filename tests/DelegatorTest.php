@@ -67,4 +67,17 @@ class DelegatorTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue( is_array($php) );
 	}
 
+	/**
+	 * Test the failure of the delegation class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_fail()
+	{
+		$fail = Delegator::getByExtension('superfail');
+
+		$this->assertFalse($fail);
+	}
+
 } // END class DelegatorTest extends \PHPUnit_Framework_TestCase

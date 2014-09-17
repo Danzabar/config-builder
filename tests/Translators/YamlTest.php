@@ -75,5 +75,19 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals( $this->data, $php->translateNative() );
 	}
 
+	/**
+	 * Tests the fail of the validateNative function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_validateFail()
+	{
+		$fail = new YAML();
+		$fail->load( Array() );
+
+		$this->assertFalse( $fail->validateNative() );
+	}
+
 } // END class YAMLTest extends \PHPUnit_Framework_TestCase
 

@@ -40,6 +40,21 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test that the dump returns false when its not a valid translation
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_dumpFail()
+	{
+		$writer = new Writer('json', '{"we":"error",;}');
+
+		$dump = $writer->dump();
+
+		$this->assertFalse($dump);
+	}
+
+	/**
 	 * Test the append function
 	 *
 	 * @return void
@@ -79,9 +94,7 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 	{
 		$writer = new Writer('json');
 		
-		$writer->load(Array('multi' => array('level', 'array'), 'test2' => 'level'));
-
-		$writer->replace('level', 'pass');
+		$writer->replace('level', 'pass', Array('multi' => array('level', 'array'), 'test2' => 'level'));
 
 		$test = $writer->getData();
 

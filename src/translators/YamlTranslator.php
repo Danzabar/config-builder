@@ -67,7 +67,7 @@ class YamlTranslator implements Translator
 		{
 			Yaml\Yaml::parse($this->data);
 
-		} catch(Yaml\Exception\ParseException $e)
+		} catch(\Exception $e)
 		{
 			return false;
 		}
