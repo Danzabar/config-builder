@@ -88,7 +88,7 @@ class Builder
 								
 				$this->fs->dumpFile($this->directory . $file . '.' . $options['extension'], $writer->dump());
 
-			} catch(Exception $e) {
+			} catch(\Exception $e) {
 					
 				$this->errors[] = array('file' => $file, 'message' => $e->getMessage());
 			}

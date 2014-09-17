@@ -89,5 +89,46 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEmpty($this->builder->getErrors());
 	}
+	
+	/**
+	 * Add files in bulk
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_makeBulkConfig()
+	{
+		$this->mock->shouldReceive('dumpFile')->times(3);
+
+		$files = array('test1', 'test2', 'test3');
+
+		$this->builder->make($files);
+
+		// Assert that the file arr has 3 entries
+		$this->assertEquals( count($this->builder->getFiles()), 3);
+
+		// Assert theres no errors.
+		$this->assertEmpty($this->builder->getErrors());
+	}
+	
+	/**
+	 * Test throwing and capturing exceptions
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_Exception()
+	{
+		$this->mock->shouldReceive('dumpFile')->andThrow( new Exception('test exception') );
+
+		$this->builder->make('file');
+		
+		$errors = $this->builder->getErrors();
+
+		// Errors should have an entry
+		$this->assertNotEmpty($errors);
+
+		$this->assertEquals('test exception', $errors[0]['message']);	
+	}
 
 } // END class BuilderTest extends \PHPUnit_Framework_TestCase
