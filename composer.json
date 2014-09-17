@@ -22,7 +22,8 @@
 	"autoload": {
 		"psr-4": {
 			"Danzabar\\Config\\":"src/",
-			"Danzabar\\Config\\Translators\\":"src/translators/"
+			"Danzabar\\Config\\Translators\\":"src/translators/",
+			"Danzabar\\Config\\Exception\\":"src/exceptions/"
 		}
 	}
 }

@@ -1,6 +1,9 @@
 <?php namespace Danzabar\Config;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Danzabar\Config\Delegator;
+use Danzabar\Config\Exception;
+
 
 /**
  * Reader for files
@@ -18,6 +21,13 @@ class Reader
 	 * @var Object
 	 */
 	protected $translator;
+
+	/**
+	 * The directory string
+	 *
+	 * @var string
+	 */
+	protected $directory;
 	
 	/**
 	 * The file we are reading, ie "test.json"
@@ -32,6 +42,13 @@ class Reader
 	 * @var Mixed
 	 */
 	protected $raw;	
+
+	/**
+	 * An instance of symfony file system
+	 *
+	 * @var Object
+	 */
+	protected $fs;
 
 	/**
 	 * Stored translation of file
@@ -53,9 +70,28 @@ class Reader
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($file)
+	public function __construct($directory, $fs = NULL)
 	{
-		$this->file = $file;
+		$this->directory = $directory;
+
+		$this->fs = (!is_null($fs) ? $fs : new FileSystem);
+	
+		// If the directory doesnt exist, throw and exception
+		if(!$this->fs->exists($directory))
+		{
+			throw new Exception\NotFoundException("The $directory directory could not be found", 0, NULL, $directory);	
+		}
+	}
+
+	/**
+	 * Returns the raw data
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getRaw()
+	{
+		return $this->raw;
 	}
 
 } // END class Reader
