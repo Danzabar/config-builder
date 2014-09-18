@@ -1,5 +1,6 @@
 <?php namespace Danzabar\Config;
 
+use Danzabar\Config\Exception;
 use Danzabar\Config\Translators\Json;
 use Danzabar\Config\Translators\YamlTranslator;
 use Danzabar\Config\Translators\XML;
@@ -39,8 +40,8 @@ class Delegator
 		{
 			return static::$extension_map[$extension];
 		}
-
-		return false;
+		
+		throw new Exception\InvalidTranslatorException("The extension provided does not have an assigned translator, extension: $extension", $extension); 
 	}
 
 	/**

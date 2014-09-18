@@ -74,10 +74,10 @@ class DelegatorTest extends \PHPUnit_Framework_TestCase
 	 * @author Dan Cox
 	 */
 	public function test_fail()
-	{
-		$fail = Delegator::getByExtension('superfail');
+	{	
+		$this->setExpectedException('\Danzabar\Config\Exception\InvalidTranslatorException');
 
-		$this->assertFalse($fail);
+		$fail = Delegator::getByExtension('superfail');
 	}
 
 } // END class DelegatorTest extends \PHPUnit_Framework_TestCase

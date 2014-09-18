@@ -38,7 +38,7 @@ class Writer
 	public function __construct($extension, $data = Array())
 	{
 		$this->translator = Delegator::getByExtension($extension);
-		
+
 		// If the data is not in array form yet, convert it
 		if(!is_array($data))
 		{
@@ -52,7 +52,7 @@ class Writer
 
 		$this->data = $data;
 	}
-
+	
 	/**
 	 * Load data into the data variable
 	 *

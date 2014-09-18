@@ -1,7 +1,8 @@
 <?php namespace Danzabar\Config;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Danzabar\Config\Delegator;
+use Symfony\Component\Finder\Finder;
+use Danzabar\Config\Writer;
 use Danzabar\Config\Exception;
 
 
@@ -14,14 +15,6 @@ use Danzabar\Config\Exception;
  */
 class Reader
 {
-	
-	/**
-	 * An instance of the specific translator class
-	 *
-	 * @var Object
-	 */
-	protected $translator;
-
 	/**
 	 * The directory string
 	 *
@@ -37,13 +30,6 @@ class Reader
 	protected $file;
 	
 	/**
-	 * The raw file output
-	 *
-	 * @var Mixed
-	 */
-	protected $raw;	
-
-	/**
 	 * An instance of symfony file system
 	 *
 	 * @var Object
@@ -51,18 +37,32 @@ class Reader
 	protected $fs;
 
 	/**
-	 * Stored translation of file
-	 *
-	 * @var Mixed
-	 */
-	protected $translated;
-
-	/**
 	 * The file extension
 	 *
 	 * @var string
 	 */
 	protected $extension;
+	
+	/**
+	 * An instance of the writer class
+	 *
+	 * @var Object
+	 */
+	protected $writer;
+
+	/**
+	 * The raw output of the file loaded
+	 *
+	 * @var Mixed
+	 */
+	protected $raw;
+
+	/**
+	 * An instance of the finder class
+	 *
+	 * @var Object
+	 */
+	protected $finder;
 
 	/**
 	 * Read the file
@@ -70,11 +70,13 @@ class Reader
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($directory, $fs = NULL)
+	public function __construct($directory, $fs = NULL, $finder = NULL)
 	{
 		$this->directory = $directory;
 
 		$this->fs = (!is_null($fs) ? $fs : new FileSystem);
+
+		$this->finder = (!is_null($finder) ? $finder : new Finder);
 	
 		// If the directory doesnt exist, throw and exception
 		if(!$this->fs->exists($directory))
@@ -83,8 +85,50 @@ class Reader
 		}
 	}
 
+		
 	/**
-	 * Returns the raw data
+	 * Opens the file specified
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function read($file)
+	{
+		$files = $this->finder->files()->in($this->directory)->name($file);
+
+		// We are looping through this but it will only
+		// ever return one result
+		foreach($files as $finder)
+		{
+			$this->raw = $finder->getContents();
+			$this->extension = $finder->getExtension();
+		}	
+	}	
+
+	/**
+	 * Gets the writer object created for the current file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getWriter()
+	{
+		return $this->writer;		
+	}
+
+	/**
+	 * Gets the translated copy of file contents
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function getTranslated()
+	{
+		return $this->translated;
+	}
+
+	/**
+	 * Returns the raw output from a file
 	 *
 	 * @return void
 	 * @author Dan Cox
@@ -92,6 +136,17 @@ class Reader
 	public function getRaw()
 	{
 		return $this->raw;
+	}
+
+	/**
+	 * Returns the file extension
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getExtension()
+	{
+		return $this->extension;
 	}
 
 } // END class Reader
