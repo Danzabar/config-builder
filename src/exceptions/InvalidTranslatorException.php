@@ -30,10 +30,9 @@ class InvalidTranslatorException extends \Exception
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($message, $extension = NULL, $file = NULL, $code = 0, \Exception $previous = NULL)
+	public function __construct($message, $extension = NULL, $code = 0, \Exception $previous = NULL)
 	{
 		$this->extension = $extension;
-		$this->file = $file;
 
 		parent::__construct($message, $code, $previous);
 	}
@@ -49,15 +48,5 @@ class InvalidTranslatorException extends \Exception
 		return $this->extension;
 	}
 
-	/**
-	 * Get the file path attempted
-	 *
-	 * @return string
-	 * @author Dan Cox
-	 */
-	public function getFilePath()
-	{
-		return $this->file;
-	}
 
 } // END class InvalidTranslatorException extends \Exception

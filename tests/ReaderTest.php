@@ -62,15 +62,15 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->finder->shouldReceive('files')->andReturn( $this->finder );
 		$this->finder->shouldReceive('in')->with('test/dir')->andReturn( $this->finder );
-		$this->finder->shouldReceive('name')->with('testfile.php')->andReturn( Array( $this->finder ));
-
 		$this->finder->shouldReceive('getContents')->andReturn('testfile');
-		$this->finder->shouldReceive('getExtension')->andReturn('php');
+		$this->finder->shouldReceive('getExtension')->andReturn('json');
+		$this->finder->shouldReceive('name')->with('testfile.json')->andReturn( Array( $this->finder ));
 
-		$this->reader->read('testfile.php');
+		
+		$this->reader->read('testfile.json');
 	
 		$this->assertEquals( $this->reader->getRaw(), 'testfile' );
-		$this->assertEquals( $this->reader->getExtension(), 'php' );
+		$this->assertEquals( $this->reader->getExtension(), 'json' );
 	}
 
 } // END class ReaderTest extends \PHPUnit_Framework_TestCase
