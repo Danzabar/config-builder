@@ -47,12 +47,10 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_dumpFail()
 	{
+		$this->setExpectedException('Danzabar\Config\Exception\InvalidContentTypeException');
+
 		$writer = new Writer('json', '{"we":"error",;}');
-
-		$dump = $writer->dump();
-
-		$this->assertFalse($dump);
-	}
+	}	
 
 	/**
 	 * Test the append function

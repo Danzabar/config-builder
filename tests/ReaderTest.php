@@ -62,15 +62,33 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->finder->shouldReceive('files')->andReturn( $this->finder );
 		$this->finder->shouldReceive('in')->with('test/dir')->andReturn( $this->finder );
-		$this->finder->shouldReceive('getContents')->andReturn('testfile');
+		$this->finder->shouldReceive('getContents')->andReturn('{"json":"test"}');
 		$this->finder->shouldReceive('getExtension')->andReturn('json');
 		$this->finder->shouldReceive('name')->with('testfile.json')->andReturn( Array( $this->finder ));
 
 		
 		$this->reader->read('testfile.json');
 	
-		$this->assertEquals( $this->reader->getRaw(), 'testfile' );
+		$this->assertEquals( $this->reader->getRaw(), '{"json":"test"}' );
 		$this->assertEquals( $this->reader->getExtension(), 'json' );
+	}
+
+	/**
+	 * Test reading a real file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_readJson()
+	{
+		$reader = new Reader(__DIR__.'/Files/');
+		
+		$reader->read('test.json');
+
+		$this->assertInstanceOf('Danzabar\Config\Writer', $reader->getWriter());
+		$this->assertInstanceOf('Danzabar\Config\Translators\Json', $reader->getWriter()->getTranslator());
+		$this->assertTrue( is_array($reader->getTranslated()) );
+		$this->assertArrayHasKey( 'test', $reader->getTranslated() );
 	}
 
 } // END class ReaderTest extends \PHPUnit_Framework_TestCase

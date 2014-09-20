@@ -103,8 +103,9 @@ class Reader
 			$this->raw = $finder->getContents();
 			$this->extension = $finder->getExtension();
 
-			$this->writer = Delegator::getByExtension($finder->getExtension());
-			$this->translated = $this->writer->translate();
+			$this->writer = new Writer($finder->getExtension(), $finder->getContents()); 
+					
+			$this->translated = $this->writer->getData(); 
 		}	
 	}	
 

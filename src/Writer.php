@@ -1,6 +1,7 @@
 <?php namespace Danzabar\Config;
 
 use Danzabar\Config\Delegator;
+use Danzabar\Config\Exception;
 
 
 /**
@@ -47,6 +48,10 @@ class Writer
 			if($this->translator->validateNative())
 			{
 				$data = $this->translator->translateNative();
+			}
+			else 
+			{
+				throw new Exception\InvalidContentTypeException($data, $extension);
 			}
 		}
 
