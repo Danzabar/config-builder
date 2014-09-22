@@ -91,4 +91,24 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey( 'test', $reader->getTranslated() );
 	}
 
+	/**
+	 * Test reading a real YML file
+	 *
+	 * @return void
+	 * @author Dan Cox
+ 	 */
+	public function test_readYML()
+	{
+		$reader = new Reader(__DIR__.'/Files/');
+
+		$reader->read('test.yml');
+			
+		$expected = array('test' => array('a YML', 1 => array('Testing' => array('multi', 'Level'))));
+		
+		$this->assertInstanceOf('Danzabar\Config\Writer', $reader->getWriter());
+		$this->assertInstanceOf('Danzabar\Config\Translators\YamlTranslator', $reader->getWriter()->getTranslator());
+		$this->assertTrue( is_array($reader->getTranslated() ));
+		$this->assertEquals($expected, $reader->getTranslated());
+	}
+
 } // END class ReaderTest extends \PHPUnit_Framework_TestCase
