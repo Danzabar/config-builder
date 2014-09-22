@@ -111,4 +111,24 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($expected, $reader->getTranslated());
 	}
 
+	/**
+	 * Test reading a real XML File
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_readXML()
+	{
+		$reader = new Reader(__DIR__.'/Files/');
+
+		$reader->read("test.xml");
+		
+		$translated = $reader->getTranslated();
+
+		$this->assertInstanceOf('Danzabar\Config\Writer', $reader->getWriter());
+		$this->assertInstanceOf('Danzabar\Config\Translators\XML', $reader->getWriter()->getTranslator());
+		$this->assertTrue(is_array($translated));
+		$this->assertEquals(count($translated['food']), 2);		
+	}
+
 } // END class ReaderTest extends \PHPUnit_Framework_TestCase
