@@ -35,7 +35,7 @@ class XML implements Translator
 	 * @author Dan Cox
 	 */
 	public function translate()
-	{	
+	{		
 		$xml = new \SimpleXMLElement('<root/>');
 		
 		$this->buildXML($this->data, $xml);
