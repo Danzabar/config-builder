@@ -104,7 +104,8 @@ class Reader
 			$this->extension = $finder->getExtension();
 
 			$this->writer = new Writer($finder->getExtension(), $finder->getContents()); 
-					
+			$this->writer->addFile($this->directory.$file);
+						
 			$this->translated = $this->writer->getData(); 
 		}	
 	}	
