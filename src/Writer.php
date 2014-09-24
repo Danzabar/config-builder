@@ -2,6 +2,8 @@
 
 use Danzabar\Config\Delegator;
 use Danzabar\Config\Exception;
+use Symfony\Component\Filesystem\Filesystem;
+
 
 
 /**
@@ -21,7 +23,20 @@ class Writer
 	 */
 	protected $data;
 
-	
+	/**
+	 * A file location to write to
+	 *
+	 * @var string
+	 */
+	protected $file;
+
+	/**
+	 * An instance of symfony file system
+	 *
+	 * @var object
+	 */
+	protected $fs;
+
 	/**
 	 * An instance of this specific translator class
 	 *
@@ -36,9 +51,11 @@ class Writer
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($extension, $data = Array())
+	public function __construct($extension, $data = Array(), $fs = NULL)
 	{
 		$this->translator = Delegator::getByExtension($extension);
+
+		$this->fs = (!is_null($fs) ? $fs : new FileSystem);
 
 		// If the data is not in array form yet, convert it
 		if(!is_array($data))
@@ -57,6 +74,19 @@ class Writer
 
 		$this->data = $data;
 	}
+
+	/**
+	 * Stores a file name for writing to
+	 *
+	 * @return $this
+	 * @author Dan Cox
+	 */
+	public function addFile($file)
+	{
+		$this->file = $file;
+
+		return $this;
+	}
 	
 	/**
 	 * Load data into the data variable
@@ -67,6 +97,24 @@ class Writer
 	public function load($data)
 	{
 		$this->data = $data;
+	}
+
+	/**
+	 * Writes the current data to the specified file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function toFile($fileLocation = NULL)
+	{
+		$file = (!is_null($fileLocation) ? $fileLocation : $this->file);
+		
+		if(!$this->fs->exists($file))
+		{
+			throw new Exception\NotFoundException("The file $file could not be found", 0, NULL, $file); 
+		}
+
+		$this->fs->dumpFile($file, $this->translator->translate());
 	}
 
 	/**

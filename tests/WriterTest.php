@@ -1,6 +1,10 @@
 <?php
 
 use Danzabar\Config\Writer;
+use Danzabar\Config\Delegator;
+
+use \Mockery as m;
+
 
 
 /**
@@ -12,6 +16,35 @@ use Danzabar\Config\Writer;
  */
 class WriterTest extends \PHPUnit_Framework_TestCase
 {
+	
+	/**
+	 * Mock instance of the file system class
+	 *
+	 * @var object
+	 */
+	protected $fs;
+	
+	/**
+	 * Setup environment for testing
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function setUp()
+	{
+		$this->fs = m::mock('FileSystem');	
+	}
+
+	/**
+	 * Remove test environment
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function tearDown()
+	{
+		m::close();
+	}
 	
 	/**
 	 * Simple test to make sure it can delegate correctly
@@ -98,6 +131,28 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue( !in_array('level', $test) );
 		$this->assertTrue( !in_array('level', $test['multi']) );
+	}
+
+	/**
+	 * Test thw write to file function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_writeToFile()
+	{
+		$json = '{"test":"json"}';
+		$writer = new Writer('json', $json, $this->fs);
+
+		$comparison = Delegator::getByExtension('json');
+		$comparison->load($json);
+
+		$this->fs->shouldReceive('exists')->with('/test/location/file.json')->andReturn(TRUE);
+		$this->fs->shouldReceive('dumpFile')->with('/test/location/file.json', $comparison->translate());
+
+		$writer->addFile('/test/location/file.json');
+		
+		$writer->toFile();	
 	}
 
 } // END class WriterTest extends \PHPUnit_Framework_TestCase
