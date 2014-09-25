@@ -141,7 +141,7 @@ class Writer
 	 */
 	public function append($data)
 	{	
-		$this->data = array_merge($data, $this->data);
+		$this->data = array_merge($this->data, $data);
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Writer
 	 */
 	public function prepend($data)
 	{
-		$this->data = array_merge($this->data, $data);
+		$this->data = array_merge($data, $this->data);
 	}
 
 	/**
