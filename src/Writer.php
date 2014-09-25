@@ -108,13 +108,13 @@ class Writer
 	public function toFile($fileLocation = NULL)
 	{
 		$file = (!is_null($fileLocation) ? $fileLocation : $this->file);
-		
+
 		if(!$this->fs->exists($file))
 		{
 			throw new Exception\NotFoundException("The file $file could not be found", 0, NULL, $file); 
 		}
 
-		$this->fs->dumpFile($file, $this->translator->translate());
+		$this->fs->dumpFile($file, $this->dump());
 	}
 
 	/**
@@ -142,6 +142,17 @@ class Writer
 	public function append($data)
 	{	
 		$this->data = array_merge($data, $this->data);
+	}
+
+	/**
+	 * Returns the specified file location
+	 *
+	 * @return string
+	 * @author Dan Cox
+	 */
+	public function getFileLocation()
+	{
+		return $this->file;
 	}
 
 	/**

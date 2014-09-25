@@ -2,7 +2,7 @@
 
 use Danzabar\Config\Writer;
 use Danzabar\Config\Delegator;
-
+use Danzabar\Config\Reader;
 use \Mockery as m;
 
 
@@ -145,7 +145,7 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 		$writer = new Writer('json', $json, $this->fs);
 
 		$comparison = Delegator::getByExtension('json');
-		$comparison->load($json);
+		$comparison->load(array('test' => 'json'));
 
 		$this->fs->shouldReceive('exists')->with('/test/location/file.json')->andReturn(TRUE);
 		$this->fs->shouldReceive('dumpFile')->with('/test/location/file.json', $comparison->translate());
@@ -153,6 +153,23 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 		$writer->addFile('/test/location/file.json');
 		
 		$writer->toFile();	
+	}
+	
+	/**
+	 * Test the writer function given from the reader
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_writerFromReader()
+	{
+		$reader = new Reader(__DIR__.'/Files/');
+
+		$reader->read('test.json');
+		$writer = $reader->getWriter();
+
+		$this->assertEquals(__DIR__.'/Files/test.json', $writer->getFileLocation());
+		$this->assertEquals($reader->getTranslated(), $writer->getData());
 	}
 
 } // END class WriterTest extends \PHPUnit_Framework_TestCase
