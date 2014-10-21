@@ -31,7 +31,7 @@ The `Collection` class uses the magic getter and setter functions so to interact
 
 	$collection->foo;
 
-Once you are done with your editions you can save the file the changes to file;
+Once you are done with your editions you can save the changes to file;
 
 	$collection->save();
 
