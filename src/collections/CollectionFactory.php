@@ -156,6 +156,24 @@ class CollectionFactory implements CollectionInterface
 	}
 
 	/**
+	 * Saves the edited / newly created data.
+	 * If Mock is TRUE it will return the dump values.
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function save($mock = FALSE)
+	{
+		if($mock)
+		{
+			return $this->attributes->getData();
+		}
+	
+		$this->writer->load($this->attributes->getData());	
+		$this->writer->toFile();
+	}
+
+	/**
 	 * Returns the writer instance
 	 *
 	 * @return object

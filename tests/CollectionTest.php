@@ -71,6 +71,25 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 		$this->assertEquals('testval', $collection->testVar);
 	}
 
+	/**
+	 * Create a new file with the collection class alone
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_buildNewCollectionFile()
+	{
+		$data = array('test' => '', 'value' => '');
+		
+		$collection = new Collection('newfile.json');
+
+		$collection->test = '';
+		$collection->value = '';
+		$saveData = $collection->save(TRUE);
+
+		$this->assertEquals($data, $saveData);
+	}
+
 
 
 

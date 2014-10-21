@@ -54,4 +54,15 @@ class CollectionAttributes
 		$this->rawData[$key] = $value;
 	}
 
+	/**
+	 * Returns the array data
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getData()
+	{
+		return $this->rawData;
+	}
+
 } // END class CollectionAttributes

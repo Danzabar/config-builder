@@ -109,11 +109,6 @@ class Writer
 	{
 		$file = (!is_null($fileLocation) ? $fileLocation : $this->file);
 
-		if(!$this->fs->exists($file))
-		{
-			throw new Exception\NotFoundException("The file $file could not be found", 0, NULL, $file); 
-		}
-
 		$this->fs->dumpFile($file, $this->dump());
 	}
 
