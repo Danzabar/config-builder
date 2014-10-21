@@ -10,6 +10,53 @@ Install with composer.
 	
 	"danzabar/config":"dev-master"
 
+## Using the File Collections
+
+Collections have now been added which allow you to interact with the data from files or create a new file in an ORM like fashion. You can use this either with the `Collection` class or by extending the `Collection` class;
+
+	use Danzabar\Config\Collection;
+
+	// Set the directory to look in
+	Collection::setDirectory('test/directory');
+
+	// Create a new File
+	$collection = new Collection('newfile.json');
+
+	// Open an existing file
+	$collection = new Collection('existing.json');
+
+The `Collection` class uses the magic getter and setter functions so to interact with the data you can:
+
+	$collection->foo = 'bar';
+
+	$collection->foo;
+
+Once you are done with your editions you can save the file the changes to file;
+
+	$collection->save();
+
+## Extending the Collection Class
+
+To create seperate classes for files you can extend from the `Collection` class to have an ORM like setup with your config files.
+
+	Class FileCollection extends Collection {
+		
+		public function __construct()
+		{
+			static::$directory = '/test/dir';
+			$this->fileName = 'filename.json';
+
+			parent::__construct();
+		}
+	}
+
+Now you can create instances of the FileCollection class you have created without providing anymore configuration options and edit/create data for it.
+
+	$collection = new FileCollection();
+
+	$collection->foo = 'bar';
+	$collection->save();
+
 ## Building files
 
 You can use the `Builder` class to quickly raise configuration files, for example:
