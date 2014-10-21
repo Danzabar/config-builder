@@ -19,13 +19,6 @@ class Collection extends CollectionFactory
 	 */
 	protected $fileName;
 
-	/**
-	 * The directory of the target
-	 *
-	 * @var string
-	 */
-	protected static $directory;
-
 
 	/**
 	 * Build up core collection features
@@ -33,9 +26,12 @@ class Collection extends CollectionFactory
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($fileName, $directory = NULL)
+	public function __construct($fileName = NULL, $directory = NULL)
 	{
-		$this->fileName    = $fileName;
+		if(!is_null($fileName))
+		{
+			$this->fileName = $fileName;
+		}
 		
 		if(!is_null($directory))
 		{
@@ -55,9 +51,6 @@ class Collection extends CollectionFactory
 	{
 		static::$directory = $directory;
 	}
-
-
-
 
 } // END class Collection extends CollectionFactory
 

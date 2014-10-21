@@ -3,6 +3,9 @@
 use Danzabar\Config\Collection;
 use Danzabar\Config\Collections\CollectionFactory;
 
+// Require the Collection TEST Class
+require_once(__DIR__ . '/Collections/TestCollection.php');
+
 /**
  * Test Case Class for the Collection and factory classes
  *
@@ -90,7 +93,22 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 		$this->assertEquals($data, $saveData);
 	}
 
+	/**
+	 * Test extending a class from the collection facade to make an easier to use class for a file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_extension()
+	{
+		$test = new TestCollection();
+		$test->var1 = 'test';
+		$test->var2 = 'test2';
+		
+		$saveData = $test->save(TRUE);
 
-
+		$this->assertEquals(__DIR__.'/Collections/Files/', $test->getDirectory());	
+		$this->assertEquals(Array('var1' => 'test', 'var2' => 'test2'), $saveData);
+	}
 
 } // END class CollectionTest extends \PHPUnit_Framework_Testcase
