@@ -1,6 +1,6 @@
 <?php namespace Danzabar\Config\Collections;
 
-use Danzabar\Config\Collections\COllectionInterface;
+use Danzabar\Config\Collections\CollectionInterface;
 use Danzabar\Config\Writer;
 use Danzabar\Config\Reader;
 use Symfony\Component\Filesystem\Filesystem;
@@ -20,7 +20,7 @@ class CollectionFactory implements CollectionInterface
 	 *
 	 * @var string
 	 */
-	protected $directory;
+	protected static $directory;
 
 	/**
 	 * The Target file name
