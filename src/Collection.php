@@ -36,9 +36,24 @@ class Collection extends CollectionFactory
 	public function __construct($fileName, $directory = NULL)
 	{
 		$this->fileName    = $fileName;
-		static::$directory = $directory;
+		
+		if(!is_null($directory))
+		{
+			static::$directory = $directory;
+		}	
 
 		parent::__construct();
+	}
+
+	/**
+	 * Sets the directory
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public static function setDirectory($directory)
+	{
+		static::$directory = $directory;
 	}
 
 

@@ -1,6 +1,7 @@
 <?php namespace Danzabar\Config\Collections;
 
 use Danzabar\Config\Collections\CollectionInterface;
+use Danzabar\Config\Collections\CollectionAttributes;
 use Danzabar\Config\Writer;
 use Danzabar\Config\Reader;
 use Symfony\Component\Filesystem\Filesystem;
@@ -58,6 +59,13 @@ class CollectionFactory implements CollectionInterface
 	protected $fs;
 
 	/**
+	 * An instance of the CollectionAttributes class
+	 *
+	 * @var Object	
+	 */
+	protected $attributes;
+
+	/**
 	 * Checks the file, and builds relevent reader/writer class for this.
 	 *
 	 * @return void
@@ -70,22 +78,87 @@ class CollectionFactory implements CollectionInterface
 		if($this->fs->exists(static::$directory.$this->fileName))
 		{
 			// Existing file, load the writer / reader
-			$this->reader = new Reader(static::$directory);
-			$this->reader->read($this->filename);
-			$this->writer = $this->reader->getWriter();
-
-		} else 
-		{
-			// New file, load the writer
-			$this->writer = new Writer($extension);	
-			$this->writer->addFile(static::$directory.$this->fileName);
+			$this->buildReader();
 		}	
+
+		$this->buildWriter();
+		$this->loadAttributes();
+	}
+
+	/**
+	 * Return an attribute
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function __get($key)
+	{
+		return $this->attributes->get($key);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function __set($key, $value)
+	{
+		$this->attributes->set($key, $value);
+	}
+
+	/**
+	 * Sets up the reader and writer variables
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function buildReader()
+	{
+		$this->reader = new Reader(static::$directory);
+		$this->reader->read($this->fileName);
+	}
+
+	/**
+	 * Builds the writer class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function buildWriter($extension = 'json')
+	{
+		if(!is_null($this->reader))
+		{
+			$this->writer = $this->reader->getWriter();
+		} else
+		{
+			$this->writer = new Writer($extension);
+			$this->writer->addFile(static::$directory.$this->fileName);
+		}
+	}
+
+	/**
+	 * Creates an instance of the CollectionAttribute class and loads data from file if available.
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function loadAttributes()
+	{
+		$data = Array();
+
+		if(!is_null($this->reader))
+		{
+			$data = $this->reader->getTranslated();
+		}
+
+		$this->attributes = new CollectionAttributes($data);
 	}
 
 	/**
 	 * Returns the writer instance
 	 *
-	 * @return void
+	 * @return object
 	 * @author Dan Cox
 	 */
 	public function getWriter()
@@ -96,12 +169,34 @@ class CollectionFactory implements CollectionInterface
 	/**
 	 * Returns the reader instance
 	 *
-	 * @return void
+	 * @return object
 	 * @author Dan Cox
 	 */
 	public function getReader()
 	{
 		return $this->reader;
+	}
+
+	/**
+	 * Returns the current working directory
+	 *
+	 * @return string
+	 * @author Dan Cox
+	 */
+	public function getDirectory()
+	{
+		return static::$directory;
+	}
+
+	/**
+	 * Return the current instance of the CollectionAttributes class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getAttributes()
+	{
+		return $this->attributes;
 	}
 		
 	
