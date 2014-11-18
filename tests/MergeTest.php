@@ -54,5 +54,45 @@ class MergeTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(__DIR__.'/Files/', $slave->getDirectory());
 	}
 
+	/**
+	 * Test merging and mocking a save
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_Merge()
+	{
+		$merger = new Merger('mergetest.json', 'mergetest2.yml', Array('baseDirectory' => __DIR__ . '/Files/'));
+
+		$data = $merger->merge();
+
+		$this->assertEquals(Array('this' => 'is_a_test_file', 'MergeTest' => Array('the' => Array('second'))), $data);		
+	}
+
+	/**
+	 * Test merging and saving the file.
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_MergeAndSave()
+	{	
+		$merger = new Merger(
+			'mergetest.json', 
+			'mergetest2.yml', 
+			Array(
+				'baseDirectory' => __DIR__ . '/Files/', 
+				'saveAsMaster' => FALSE, 
+				'saveFormat' => 'json')
+		);
+
+		$writer = \Mockery::mock('Writer');
+
+		$writer->shouldReceive('load')->with(Array('this' => 'is_a_test_file', 'MergeTest' => Array('the' => Array('second'))));
+		$writer->shouldReceive('toFile')->with('testFileLocation');
+	
+		$write = $merger->save('testFileLocation', $writer);
+	}
+
 
 } // END class MergeTest extends \PHPUnit_Framework_TestCase

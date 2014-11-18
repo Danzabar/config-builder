@@ -14,14 +14,14 @@ use Danzabar\Config\Delegator;
 class Merger
 {
 	/**
-	 * The master file, if a value is in here, it will override
+	 * The master file, the base set of rules to go by
 	 *
 	 * @var Reader
 	 */
 	protected $master;
 
 	/**
-	 * The slave file, values in here will only be included if they dont exist in the master
+	 * The slave file, values in here will override the master
 	 *
 	 * @var Reader
 	 */
@@ -64,6 +64,48 @@ class Merger
 			$this->$key = new Reader($details['directory']);
 			$this->$key->read($details['file']);
 		}
+	}
+
+	/**
+	 * Merge the config files and return the subsequent array
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function merge()
+	{
+		// Merge the two arrays
+		$newData = array_merge($this->master->getTranslated(), $this->slave->getTranslated());
+		
+		return $newData;		
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function save($location = NULL, $writer = NULL)
+	{
+		$data = $this->merge();
+
+		if($this->options['saveAsMaster'] == FALSE)
+		{
+			$writer = (!is_null($writer) ? $writer : new Writer($this->options['saveFormat']));
+			$writer->load($data);
+			
+			// Save to file
+			$writer->toFile($location);	
+
+			return $writer;
+		}
+
+		// Here we are writing to the master file
+		$this->master->getWriter()->load($data);
+		$this->master->getWriter()->toFile();
+
+		return $this->master->getWriter();
 	}
 
 	/**
