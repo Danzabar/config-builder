@@ -154,5 +154,16 @@ class Reader
 		return $this->extension;
 	}
 
+	/**
+	 * Returns the directory
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getDirectory()
+	{
+		return $this->directory;
+	}
+
 } // END class Reader
 
