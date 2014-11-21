@@ -2,6 +2,8 @@
 
 use \Mockery as m;
 use Danzabar\Config\Reader;
+use Danzabar\Config\Exception\NotFoundException;
+
 
 /**
  * Test case for the exception class NotFound;
@@ -52,6 +54,28 @@ class NotFoundTest extends \PHPUnit_Framework_TestCase
 		$this->setExpectedException('\Danzabar\Config\Exception\NotFoundException', 'The test/dir directory could not be found');
 
 		$this->reader = new Reader('test/dir', $this->fs);
+	}
+
+	/**
+	 * Test just firing and catching exception
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_fireException()
+	{
+		$exception = NULL;
+		try {
+
+			throw new NotFoundException('', 0, NULL, 'test');
+
+		} catch (\Exception $e) {
+			
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf('\Exception', $exception);
+		$this->assertEquals('test', $exception->getPath());
 	}
 
 	/**

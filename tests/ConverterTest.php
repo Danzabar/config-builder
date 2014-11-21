@@ -84,7 +84,8 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 		// Fix for none pretty print json :(	
 		$comparison = file_get_contents(__DIR__.'/Files/test.json');
 		$comparison = json_decode($comparison, true);
-
+		
+		$this->assertEquals($comparison, $converter->getRawOutput());
 		$this->assertEquals(json_encode($comparison, JSON_PRETTY_PRINT), $toJson->translate());
 	}
 
@@ -107,8 +108,41 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
 		$toYaml = Delegator::getByExtension('yml');
 		$toYaml->load($toArray->translateNative());
-
+		
 		$this->assertEquals(file_get_contents(__DIR__.'/Files/test.yml'), $toYaml->translate());
+	}
+
+	/**
+	 * Test the path info
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_PathInfo()
+	{
+		$converter = new Converter(__DIR__.'/Files/test.yml', 'json');
+		
+		$info = Array(
+			'dirname'	=> __DIR__.'/Files',
+			'basename'	=> 'test.yml',
+			'extension' => 'yml',
+			'filename'	=> 'test'
+		);
+
+		$this->assertEquals($info, $converter->getPathInfo());
+	}
+
+	/**
+	 * Test loading a file that doesnt exist
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_FileDoesntExist()
+	{
+		$this->setExpectedException('Danzabar\Config\Exception\NotFoundException');
+
+		$converter = new Converter('fakefile', 'json');
 	}
 	
 	/**

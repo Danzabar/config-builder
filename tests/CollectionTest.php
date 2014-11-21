@@ -51,7 +51,7 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 	 */
 	public function test_exists()
 	{
-		$collection = new Collection('test.json');
+		$collection = new Collection('test.json', __DIR__.'/Files/');
 
 		$this->assertEquals(__DIR__.'/Files/', $collection->getDirectory());
 		$this->assertInstanceOf('Danzabar\Config\Reader', $collection->getReader());
@@ -72,6 +72,19 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 		$collection->testVar = 'testval';
 
 		$this->assertEquals('testval', $collection->testVar);
+	}
+
+	/**
+	 * Test getting an attribute that doesnt exist
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_getNotFound()
+	{
+		$collection = new Collection('tester.json');
+
+		$this->assertNull($collection->fakevar);
 	}
 
 	/**

@@ -184,7 +184,7 @@ class Converter
 	 * @return string
 	 * @author Dan Cox
 	 */
-	private function getPathInfo($key = NULL)
+	public function getPathInfo($key = NULL)
 	{
 		$info = pathinfo($this->file);
 		

@@ -41,6 +41,8 @@ class CollectionAttributes
 		{
 			return $this->rawData[$key];
 		}
+
+		return NULL;
 	}
 
 	/**
