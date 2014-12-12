@@ -2,6 +2,7 @@
 
 use Danzabar\Config\Collection;
 use Danzabar\Config\Collections\CollectionFactory;
+use \Mockery as m;
 
 // Require the Collection TEST Class
 require_once(__DIR__ . '/Collections/TestCollection.php');
@@ -15,6 +16,12 @@ require_once(__DIR__ . '/Collections/TestCollection.php');
  */
 class CollectionTest extends \PHPUnit_Framework_Testcase
 {
+	/**
+	 * A mock writer
+	 *
+	 * @var Object
+	 */
+	protected $writer;
 	
 	/**
 	 * Set up the test environment
@@ -25,6 +32,8 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 	public function setUp()
 	{
 		Collection::setDirectory(__DIR__.'/Files/');
+
+		$this->writer = m::mock('Writer');
 	}
 
 	/**
@@ -99,9 +108,12 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 		
 		$collection = new Collection('newfile.json');
 
+		$this->writer->shouldReceive('load')->andReturn($this->writer);
+		$this->writer->shouldReceive('toFile');
+
 		$collection->test = '';
 		$collection->value = '';
-		$saveData = $collection->save(TRUE);
+		$saveData = $collection->save($this->writer);
 
 		$this->assertEquals($data, $saveData);
 	}
@@ -117,8 +129,11 @@ class CollectionTest extends \PHPUnit_Framework_Testcase
 		$test = new TestCollection();
 		$test->var1 = 'test';
 		$test->var2 = 'test2';
-		
-		$saveData = $test->save(TRUE);
+
+		$this->writer->shouldReceive('load')->andReturn($this->writer);
+		$this->writer->shouldReceive('toFile');
+
+		$saveData = $test->save($this->writer);
 
 		$this->assertEquals(__DIR__.'/Collections/Files/', $test->getDirectory());	
 		$this->assertEquals(Array('var1' => 'test', 'var2' => 'test2'), $saveData);

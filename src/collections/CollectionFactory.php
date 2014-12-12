@@ -162,15 +162,17 @@ class CollectionFactory implements CollectionInterface
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function save($mock = FALSE)
+	public function save($writer = NULL)
 	{
-		if($mock)
+		if($writer)
 		{
-			return $this->attributes->getData();
+			$this->writer = $writer;
 		}
 	
 		$this->writer->load($this->attributes->getData());	
 		$this->writer->toFile();
+
+		return $this->attributes->getData();
 	}
 
 	/**
