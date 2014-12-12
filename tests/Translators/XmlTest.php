@@ -42,7 +42,10 @@ class XmlTest extends \PHPUnit_Framework_TestCase
 				'multi' => array(
 					'level',
 					'with' => 'key',
-					3 => 'numeric'
+					3 => 'numeric',
+					4 => array(
+						'value'
+					)
 				)
 			)
 		);
