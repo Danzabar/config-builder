@@ -8,7 +8,7 @@ The config builder allows you to raise configuration files of several formats pr
 
 Install with composer.
 	
-	"danzabar/config":"dev-master"
+	"danzabar/config":"1.3.0"
 
 ## Using the File Collections
 
