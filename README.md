@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Danzabar/config-builder.svg?branch=master)](https://travis-ci.org/Danzabar/config-builder) [![Coverage Status](https://img.shields.io/coveralls/Danzabar/config-builder.svg)](https://coveralls.io/r/Danzabar/config-builder?branch=master)
+[![Build Status](https://travis-ci.org/Danzabar/config-builder.svg?branch=master)](https://travis-ci.org/Danzabar/config-builder) [![Coverage Status](https://img.shields.io/coveralls/Danzabar/config-builder.svg)](https://coveralls.io/r/Danzabar/config-builder?branch=master) [![Latest Stable Version](https://poser.pugx.org/danzabar/config/v/stable.svg)](https://packagist.org/packages/danzabar/config) [![Total Downloads](https://poser.pugx.org/danzabar/config/downloads.svg)](https://packagist.org/packages/danzabar/config) [![Latest Unstable Version](https://poser.pugx.org/danzabar/config/v/unstable.svg)](https://packagist.org/packages/danzabar/config) [![License](https://poser.pugx.org/danzabar/config/license.svg)](https://packagist.org/packages/danzabar/config)
 
 # Config Builder
 
