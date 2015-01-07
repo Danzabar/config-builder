@@ -1,4 +1,6 @@
-<?php namespace Danzabar\Config\Translators;
+<?php namespace Danzabar\Config\Data\Extensions;
+
+use Danzabar\Config\Data\Extensions\ExtensionInterface;
 
 /**
  * Translates php arrays to json in a dynamic environment
@@ -7,7 +9,7 @@
  * @subpackage Translator
  * @author Dan Cox
  */
-class Json Implements Translator
+class Json Implements ExtensionInterface
 {
 	
 	/**
@@ -35,7 +37,7 @@ class Json Implements Translator
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function translate()
+	public function toNative()
 	{
 		return json_encode( $this->data, JSON_PRETTY_PRINT);
 	}
@@ -46,7 +48,7 @@ class Json Implements Translator
 	 * @return boolean
 	 * @author Dan Cox
 	 */
-	public function validate()
+	public function validateArray()
 	{
 		return (is_array($this->data));
 	}
@@ -57,7 +59,7 @@ class Json Implements Translator
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function translateNative()
+	public function toArray()
 	{
 		return json_decode( $this->data , TRUE );
 	}
@@ -68,7 +70,7 @@ class Json Implements Translator
 	 * @return boolean
 	 * @author Dan Cox
 	 */
-	public function validateNative()
+	public function validate()
 	{
 		json_decode($this->data);
 		

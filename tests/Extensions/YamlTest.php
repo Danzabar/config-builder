@@ -1,6 +1,6 @@
 <?php 
 
-use Danzabar\Config\Translators\YamlTranslator as YAML;
+use Danzabar\Config\Data\Extensions\YamlTranslator as YAML;
 
 /**
  * Tests for the YAML Translator
@@ -49,13 +49,13 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 	public function test_translate()
 	{
 		// The array is valid
-		$this->assertTrue( $this->yaml->validate() );
+		$this->assertTrue( $this->yaml->validateArray() );
 
 		// The result is valid yaml
 		$check = new YAML();
-		$check->load( $this->yaml->translate() );
+		$check->load( $this->yaml->toNative() );
 
-		$this->assertTrue( $check->validateNative() );
+		$this->assertTrue( $check->validate() );
 	}
 
 	/**
@@ -67,12 +67,12 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 	public function test_translateNative()
 	{
 		$php = new YAML();
-		$php->load($this->yaml->translate());
+		$php->load($this->yaml->toNative());
 
 		// It is valid yaml
-		$this->assertTrue( $php->validateNative() );
+		$this->assertTrue( $php->validate() );
 			
-		$this->assertEquals( $this->data, $php->translateNative() );
+		$this->assertEquals( $this->data, $php->toArray() );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 		$fail = new YAML();
 		$fail->load( Array() );
 
-		$this->assertFalse( $fail->validateNative() );
+		$this->assertFalse( $fail->validate() );
 	}
 
 } // END class YAMLTest extends \PHPUnit_Framework_TestCase

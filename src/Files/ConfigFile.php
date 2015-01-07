@@ -1,7 +1,7 @@
 <?php namespace Danzabar\Config\Files;
 
-use Symfony\Component\FileSystem\FileSystem,
-	Danzabar\Config\Files\Finder;
+use Symfony\Component\Filesystem\Filesystem,
+	Danzabar\Config\Files\FileInfo;
 
 
 /**
@@ -21,11 +21,32 @@ class ConfigFile
 	protected $fs;
 
 	/**
-	 * Instance of the finder class
+	 * An instance of the file info class
 	 *
 	 * @var Object
 	 */
-	protected $finder;
+	protected $info;
+
+	/**
+	 * The file extension
+	 *
+	 * @var string
+	 */
+	protected $extension;
+
+	/**
+	 * The file name
+	 *
+	 * @var string
+	 */
+	protected $filename;
+
+	/**
+	 * The file directory
+	 *
+	 * @var string
+	 */
+	protected $directory;
 
 	/**
 	 * Set up dependencies
@@ -33,11 +54,66 @@ class ConfigFile
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($fs = NULL, $finder = NULL)
+	public function __construct($fs = NULL, $fileInfo = NULL)
 	{
-		$this->fs = (!is_null($fs) ? $fs : new FileSystem);
-		$this->finder = (!is_null($finder) ? $finder : new Finder);
+		$this->fs = (!is_null($fs) ? $fs : new Filesystem);
+		$this->info = (!is_null($fileInfo) ? $fileInfo : new FileInfo);
 	} 
+
+	/**
+	 * Creates the file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function create($file)
+	{
+		$this->fs->dumpFile($file, '');
+
+		return $this->load($file);
+	}
+
+	/**
+	 * Loads the file and its details
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function load($file)
+	{
+		// If the file doesnt exist yet, create it
+		if(!$this->fs->exists($file))
+		{
+			return $this->create($file);
+		}
+
+		$info->load($file);
+		$this->extension = $info->extension;
+		$this->directory = $info->directory;
+		$this->filename = $info->filename;
+	}
+
+	/**
+	 * Returns the extension
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getExtension()
+	{
+		return $this->extension;
+	}
+
+	/**
+	 * Returns the filename
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function getFileName()
+	{
+		return $this->filename;
+	}
 
 	/**
 	 * Returns the file system instance
@@ -48,17 +124,6 @@ class ConfigFile
 	public function getFs()
 	{
 		return $this->fs;
-	}
-
-	/**
-	 * Returns the finder instance
-	 *
-	 * @return Finder
-	 * @author Dan Cox
-	 */
-	public function getFinder()
-	{
-		return $this->finder;
 	}
 
 	

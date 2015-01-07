@@ -1,6 +1,6 @@
 <?php 
 
-use Danzabar\Config\Translators\Json;
+use Danzabar\Config\Data\Extensions\Json;
 
 
 Class Test_Json extends \PHPUnit_Framework_TestCase
@@ -55,10 +55,10 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	public function test_basic()
 	{
 		// This is a valid array so it should validate.
-		$this->assertEquals( $this->json->validate(), TRUE);
+		$this->assertEquals( $this->json->validateArray(), TRUE);
 
 		// Since it validated the results of translate should not return a NULL
-		$this->assertTrue( !is_null($this->json->translate()) );
+		$this->assertTrue( !is_null($this->json->toNative()) );
 	}
 	
 	/**
@@ -72,7 +72,7 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	{	
 		$our_json = json_encode($this->data, JSON_PRETTY_PRINT);
 
-		$this->assertEquals($this->json->translate(), $our_json);
+		$this->assertEquals($this->json->toNative(), $our_json);
 	}
 
 	/**
@@ -90,8 +90,8 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 		$test1->load('Passing String');
 		$test2->load((object) array('passing', 'object'));
 
-		$this->assertFalse( $test1->validate() );
-		$this->assertFalse( $test2->validate() );
+		$this->assertFalse( $test1->validateArray() );
+		$this->assertFalse( $test2->validateArray() );
 	}
 
 	/**
@@ -103,10 +103,10 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 	public function test_nativeTranslate()
 	{
 		$php = new Json();
-		$php->load($this->json->translate());
+		$php->load($this->json->toNative());
 
-		$this->assertTrue( $php->validateNative() );
-		$this->assertEquals($this->data, $php->translateNative());
+		$this->assertTrue( $php->validate() );
+		$this->assertEquals($this->data, $php->toArray());
 	}
 
 	/**
@@ -122,6 +122,6 @@ Class Test_Json extends \PHPUnit_Framework_TestCase
 		$php = new Json();
 		$php->load($badJson);
 
-		$this->assertFalse( $php->validateNative() );
+		$this->assertFalse( $php->validate() );
 	}
 }

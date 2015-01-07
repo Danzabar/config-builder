@@ -1,6 +1,7 @@
-<?php namespace Danzabar\Config\Translators;
+<?php namespace Danzabar\Config\Data\Extensions;
 
-use Symfony\Component\Yaml;
+use Symfony\Component\Yaml,
+	Danzabar\Config\Data\Extensions\ExtensionInterface;
 
 /**
  * Yaml config translator class
@@ -9,7 +10,7 @@ use Symfony\Component\Yaml;
  * @subpackage Translators
  * @author Dan Cox
  */
-class YamlTranslator implements Translator
+class YamlTranslator implements ExtensionInterface
 {
 	
 	/**
@@ -37,7 +38,7 @@ class YamlTranslator implements Translator
 	 * @return Boolean
 	 * @author Dan Cox
 	 */
-	public function validate()
+	public function validateArray()
 	{
 		return (is_array($this->data));
 	}
@@ -48,7 +49,7 @@ class YamlTranslator implements Translator
 	 * @return String
 	 * @author Dan Cox
 	 */
-	public function translate()
+	public function toNative()
 	{
 		$writer = new Yaml\Dumper();
 
@@ -61,7 +62,7 @@ class YamlTranslator implements Translator
 	 * @return Boolean
 	 * @author Dan Cox
 	 */
-	public function validateNative()
+	public function validate()
 	{
 		try
 		{
@@ -81,7 +82,7 @@ class YamlTranslator implements Translator
 	 * @return Array
 	 * @author Dan Cox
 	 */
-	public function translateNative()
+	public function toArray()
 	{
 		return Yaml\Yaml::parse($this->data);
 	}

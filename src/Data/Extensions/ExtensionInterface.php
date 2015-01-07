@@ -1,12 +1,12 @@
-<?php namespace Danzabar\Config\Translators;
+<?php namespace Danzabar\Config\Data\Extensions;
 
 /**
- * Interface for translators
+ * Interface for extensions
  *
  * @package Config
  * @author Dan Cox
  */
-interface Translator
+interface ExtensionInterface
 {
 	
 	/**
@@ -29,10 +29,10 @@ interface Translator
 	/**
 	 * Translates the data into the native format.
 	 *
-	 * @return Mixed
+	 * @return String
 	 * @author Dan Cox
 	 */
-	public function translate();
+	public function toNative();
 
 
 	/**
@@ -41,7 +41,7 @@ interface Translator
 	 * @return Array
 	 * @author Dan Cox
 	 */
-	public function translateNative();
+	public function toArray();
 	
 	
 	/**
@@ -50,6 +50,6 @@ interface Translator
 	 * @return Boolean
 	 * @author Dan Cox
 	 */
-	public function validateNative();
+	public function validateArray();
 	
 }
