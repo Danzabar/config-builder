@@ -23,12 +23,14 @@ class Json Implements ExtensionInterface
 	/**
 	 * Loads the data.
 	 *
-	 * @return void
+	 * @return Json
 	 * @author Dan Cox
 	 */
 	public function load($data)
 	{
 		$this->data = $data;
+
+		return $this;
 	}
 
 	/**

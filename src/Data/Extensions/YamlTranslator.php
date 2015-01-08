@@ -24,12 +24,14 @@ class YamlTranslator implements ExtensionInterface
 	/**
 	 * Loads the data
 	 *
-	 * @return void
+	 * @return YamlTranslator
 	 * @author Dan Cox
 	 */
 	public function load($data)
 	{
 		$this->data = $data;
+
+		return $this;
 	}
 
 	/**
