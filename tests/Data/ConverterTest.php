@@ -80,7 +80,23 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Danzabar\Config\Data\ParamBag', $params);
 		$this->assertTrue(isset($params->test));
 		$this->assertEquals('var', $params->test);
+	}
 
+	/**
+	 * Test that the class has the right instances
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_instancesOf()
+	{
+		$converter = new Converter();
+		$converter->process('yml', 'test');
+
+		$this->assertInstanceOf('Danzabar\Config\Data\ParamBag', $converter->getParamBag());
+		$this->assertInstanceOf('Danzabar\Config\Data\ExtensionMap', $converter->getExtensionMap());
+		$this->assertEquals('yml', $converter->getExtension());
+		$this->assertEquals('test', $converter->getData());
 	}
 
 } // END class ConverterTest extends \PHPUnit_Framework_TestCase

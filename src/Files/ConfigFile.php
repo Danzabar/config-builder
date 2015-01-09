@@ -76,7 +76,7 @@ class ConfigFile
 	/**
 	 * Loads the file and its details
 	 *
-	 * @return void
+	 * @return ConfigFile
 	 * @author Dan Cox
 	 */
 	public function load($file)
@@ -91,6 +91,8 @@ class ConfigFile
 		$this->extension = $info->extension;
 		$this->directory = $info->directory;
 		$this->filename = $info->filename;
+
+		return $this;
 	}
 
 	/**
