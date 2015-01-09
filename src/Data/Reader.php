@@ -39,9 +39,8 @@ class Reader
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($file, $fs = NULL)
+	public function __construct( $fs = NULL)
 	{
-		$this->file = $file;
 		$this->fs = (!is_null($fs) ? $fs : new Filesystem);
 	}
 
@@ -51,8 +50,10 @@ class Reader
 	 * @return Reader
 	 * @author Dan Cox
 	 */
-	public function read()
+	public function read($file)
 	{
+		$this->file = $file;
+
 		if($this->fs->exists($this->file)) {
 
 			$this->data = file_get_contents($this->file);

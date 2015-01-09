@@ -28,6 +28,13 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 	protected $fs;
 
 	/**
+	 * Mockery of the extracter class
+	 *
+	 * @var Object
+	 */
+	protected $extracter;
+
+	/**
 	 * Set up mocks
 	 *
 	 * @return void
@@ -37,6 +44,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->infoMock = m::mock('FileInfo');
 		$this->fs = m::mock('FileSystem');
+		$this->extracter = m::mock('Extracter');
 	}
 
 	/**
@@ -71,18 +79,58 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_CreateAndLoadFile()
 	{
-		$file = new ConfigFile($this->fs, $this->infoMock);
-
-		$this->fs->shouldReceive('exists')->andReturn(False);
-		$this->fs->shouldReceive('dumpFile');
+		$file = new ConfigFile($this->fs, $this->infoMock, $this->extracter);
 
 		$this->fs->shouldReceive('exists')->andReturn(True);
+		$this->fs->shouldReceive('dumpFile');
+
 		$this->infoMock->shouldReceive('load')->andReturn($this->infoMock);
-		$this->infoMock->extension = 'json';
+		$this->infoMock->extension = 'yml';
 		$this->infoMock->filename = 'test';
 		$this->infoMock->directory = '/test/dir';
 
-			
+		$this->extracter->shouldReceive('load')->andReturn($this->extracter);
+		$this->extracter->shouldReceive('extract');
+		$this->extracter->shouldReceive('params')->andReturn($this->extracter);
+
+		$file->create('test.yml');
+	}
+
+	/**
+	 * Test exception thrown when loading a file that doesnt exist
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_exceptionOnLoadingFile()
+	{
+		$this->setExpectedException('Danzabar\Config\Exceptions\FileNotExists');	
+
+		$file = new ConfigFile($this->fs, $this->infoMock, $this->extracter);
+
+		$this->fs->shouldReceive('exists')->andReturn(FALSE);
+
+		$file->load('test');
+	}
+
+	/**
+	 * Test loading a real file and getting a parambag back
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_loadRealFileGetRealParams()
+	{
+		$file = new ConfigFile;
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.yml');
+
+		$this->assertInstanceOf('Danzabar\Config\Data\ParamBag', $file->params());
+		$this->assertTrue(isset($file->params()->test));
+		$this->assertTrue(is_array($file->params()->test));
+
+		$file->params()->test = 'value';
+
+		$this->assertEquals('value', $file->params()->test);
 	}
 
 } // END class ConfigFileTest extends \PHPUnit_Framework_TestCase

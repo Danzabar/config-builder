@@ -51,8 +51,8 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->setExpectedException('Danzabar\Config\Exceptions\FileNotExists');
 		
-		$reader = new Reader('test.yml');	
-		$reader->read();
+		$reader = new Reader();	
+		$reader->read('test');
 	}
 
 	/**
@@ -63,8 +63,8 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_withFile()
 	{
-		$reader = new Reader(__DIR__ . '/TestFiles/test.yml');
-		$reader->read();
+		$reader = new Reader();
+		$reader->read(__DIR__ . '/TestFiles/test.yml');
 
 		$this->assertContains('this', $reader->getData());
 		$this->assertContains('is', $reader->getData());
@@ -81,7 +81,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_instancesOf()
 	{
-		$reader = new Reader('test.yml');
+		$reader = new Reader;
 
 		$this->assertInstanceOf('Symfony\Component\Filesystem\Filesystem', $reader->getFs());
 	}

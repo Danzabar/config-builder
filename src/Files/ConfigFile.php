@@ -1,7 +1,9 @@
 <?php namespace Danzabar\Config\Files;
 
 use Symfony\Component\Filesystem\Filesystem,
-	Danzabar\Config\Files\FileInfo;
+	Danzabar\Config\Files\FileInfo,
+	Danzabar\Config\Data\Extracter,
+	Danzabar\Config\Exceptions;
 
 
 /**
@@ -26,6 +28,20 @@ class ConfigFile
 	 * @var Object
 	 */
 	protected $info;
+
+	/**
+	 * Extracter object
+	 *
+	 * @var Object
+	 */
+	protected $extracter;
+
+	/**
+	 * Instance of the param bag
+	 *
+	 * @var Object
+	 */
+	protected $params;
 
 	/**
 	 * The file extension
@@ -54,10 +70,11 @@ class ConfigFile
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($fs = NULL, $fileInfo = NULL)
+	public function __construct($fs = NULL, $fileInfo = NULL, $extracter = NULL)
 	{
 		$this->fs = (!is_null($fs) ? $fs : new Filesystem);
 		$this->info = (!is_null($fileInfo) ? $fileInfo : new FileInfo);
+		$this->extracter = (!is_null($extracter) ? $extracter : new Extracter);
 	} 
 
 	/**
@@ -81,18 +98,31 @@ class ConfigFile
 	 */
 	public function load($file)
 	{
-		// If the file doesnt exist yet, create it
 		if(!$this->fs->exists($file))
 		{
-			return $this->create($file);
+			throw new Exceptions\FileNotExists($file);
 		}
 
-		$info->load($file);
-		$this->extension = $info->extension;
-		$this->directory = $info->directory;
-		$this->filename = $info->filename;
+		$this->info->load($file);
+		$this->extension = $this->info->extension;
+		$this->directory = $this->info->directory;
+		$this->filename = $this->info->filename;
 
-		return $this;
+		$this->extracter->load($file, $this->extension)
+						->extract();
+
+		$this->params = $this->extracter->params();
+	}
+
+	/**
+	 * Returns the param bag
+	 *
+	 * @return ParamBag
+	 * @author Dan Cox
+	 */
+	public function params()
+	{
+		return $this->params;
 	}
 
 	/**

@@ -76,7 +76,20 @@ class Extracter
 	 */
 	public function extract()
 	{
-		$this->converter->process($this->extension, $this->reader->read($this->file));
+		$this->reader->read($this->file);
+
+		$this->converter->process($this->extension, $this->reader->getData());
+	}
+
+	/**
+	 * Returns the param bag created by the converter
+	 *
+	 * @return ParamBag
+	 * @author Dan Cox
+	 */
+	public function params()
+	{	
+		return $this->converter->getParamBag();
 	}
 
 } // END class Extracter
