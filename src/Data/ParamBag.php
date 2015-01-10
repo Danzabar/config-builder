@@ -91,7 +91,7 @@ class ParamBag
 
 		$json = str_replace($search, $replace, $json);
 
-		$this->params = json_decode($json);
+		$this->params = json_decode($json, TRUE);
 	}
 
 } // END class ParamBag

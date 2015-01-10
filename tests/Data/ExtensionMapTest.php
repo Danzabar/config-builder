@@ -67,5 +67,19 @@ class ExtensionMapTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Danzabar\Config\Data\Extensions\YamlTranslator', $this->map->get('yml'));
 	}
 
+	/**
+	 * Test that returns all the extension maps
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_ReturningAllExtensions()
+	{
+		$extensions = $this->map->get();
+
+		$this->assertTrue(array_key_exists('json', $extensions));
+		$this->assertTrue(array_key_exists('yml', $extensions));
+	}
+
 
 } // END class ExtensionMapTest extends \PHPUnit_Framework_TestCase

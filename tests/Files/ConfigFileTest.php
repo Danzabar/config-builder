@@ -94,6 +94,9 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 		$this->extracter->shouldReceive('params')->andReturn($this->extracter);
 
 		$file->create('test.yml');
+
+		$this->assertEquals('yml', $file->getExtension());
+		$this->assertEquals('test', $file->getFilename());
 	}
 
 	/**
