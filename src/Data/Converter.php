@@ -78,6 +78,21 @@ class Converter
 	}
 
 	/**
+	 * Converts the parambag instance of the native extension format
+	 *
+	 * @return Mixed
+	 * @author Dan Cox
+	 */
+	public function toNative(ParamBag $paramBag)
+	{
+		// We can assume the extension exists, since it has already been used
+		$ext = $this->extensionMap->get($this->extension);
+		$native = $ext->load($paramBag->all())->toNative();
+
+		return $native;
+	}
+
+	/**
 	 * Returns the instance of the param bag
 	 *
 	 * @return ParamBag

@@ -136,4 +136,25 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('value', $file->params()->test);
 	}
 
+	/**
+	 * Loading and saving a basic yml file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_SavingBasicFile()
+	{
+		$file = new ConfigFile($this->fs);
+		
+		$this->fs->shouldReceive('exists')->andReturn(TRUE);
+
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.yml');
+
+		$file->params()->test = 'value';
+
+		$this->fs->shouldReceive('dumpFile')->with(dirname(__DIR__) . '/Data/TestFiles/test.yml', '{ test: value }');
+
+		$file->save();
+	}
+
 } // END class ConfigFileTest extends \PHPUnit_Framework_TestCase

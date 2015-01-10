@@ -92,4 +92,15 @@ class Extracter
 		return $this->converter->getParamBag();
 	}
 
+	/**
+	 * Returns the converter
+	 *
+	 * @return Converter
+	 * @author Dan Cox
+	 */
+	public function converter()
+	{
+		return $this->converter;
+	}
+
 } // END class Extracter

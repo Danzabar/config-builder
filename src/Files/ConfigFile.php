@@ -44,6 +44,13 @@ class ConfigFile
 	protected $params;
 
 	/**
+	 * The original file name string
+	 *
+	 * @var string
+	 */
+	protected $file;	
+
+	/**
 	 * The file extension
 	 *
 	 * @var string
@@ -103,6 +110,7 @@ class ConfigFile
 			throw new Exceptions\FileNotExists($file);
 		}
 
+		$this->file = $file;
 		$this->info->load($file);
 		$this->extension = $this->info->extension;
 		$this->directory = $this->info->directory;
@@ -112,6 +120,20 @@ class ConfigFile
 						->extract();
 
 		$this->params = $this->extracter->params();
+	}
+	
+	/**
+	 * Saves the current params to the file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function save()
+	{
+		$converter = $this->extracter->converter();
+		$data = $converter->toNative($this->params);
+
+		$this->fs->dumpFile($this->file, $data);
 	}
 
 	/**
