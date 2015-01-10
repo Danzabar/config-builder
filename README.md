@@ -10,6 +10,20 @@ Now on version 2, I have rewritten a lot of the code from the original config bu
 
 With a new version comes new documentation.
 
+ - [Installation](https://github.com/Danzabar/config-builder/blob/master/docs/Installation.md)
+ - [Loading a config file](https://github.com/Danzabar/config-builder/blob/master/docs/LoadingAFile.md)
+ - [Creating a config file](https://github.com/Danzabar/config-builder/blob/master/docs/CreatingAFile.md)
+ - [Using Parameters](https://github.com/Danzabar/config-builder/blob/master/docs/Parameters.md) 
+ - [Extensions](https://github.com/Danzabar/config-builder/blob/master/docs/ExtensionClasses.md)
+
+## The Future
+
+I will be adding the following features, If you'd like some functionality added, then write it up as a suggest and post an issue for it, or fork this repo and add it yourself;
+	
+ - Merging configuration files
+ - Converting the format of a configuration file
+ - Deleting config file
+
 ## Contributing
 
 You are welcome to contribute to this project, Just fork this and make a pull request!
