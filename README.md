@@ -22,7 +22,6 @@ I will be adding the following features, If you'd like some functionality added,
 	
  - Merging configuration files
  - Converting the format of a configuration file
- - Deleting config file
 
 ## Contributing
 

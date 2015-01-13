@@ -21,3 +21,11 @@ This will be loaded in the ParamBag instance and you could use this like:
 	$file->save();
 
 Theres more documentation on the ParamBag class with gives you a better insight into its uses, check out the docs folder for more info.
+
+## Deleting a file
+
+You can delete a file too, just use the `delete` method on the instance of `ConfigFile`
+
+	$file->delete();
+
+Tip: after deleting a file, the files params remain, if you was to use the `save` method the file would remain.
