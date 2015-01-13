@@ -157,4 +157,23 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 		$file->save();
 	}
 
+	/**
+	 * Deletion tests
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_loadAndDelete()
+	{
+		$file = new ConfigFile($this->fs);
+
+		$this->fs->shouldReceive('exists')->andReturn(TRUE);
+
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.yml');
+
+		$this->fs->shouldReceive('remove')->with(dirname(__DIR__) . '/Data/TestFiles/test.yml');
+
+		$file->delete();
+	}
+
 } // END class ConfigFileTest extends \PHPUnit_Framework_TestCase

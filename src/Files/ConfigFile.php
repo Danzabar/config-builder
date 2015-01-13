@@ -137,6 +137,17 @@ class ConfigFile
 	}
 
 	/**
+	 * Deletes this config file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function delete()
+	{
+		$this->fs->remove($this->file);
+	}
+
+	/**
 	 * Returns the param bag
 	 *
 	 * @return ParamBag
