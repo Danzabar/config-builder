@@ -55,7 +55,7 @@ class YamlTranslator implements ExtensionInterface
 	{
 		$writer = new Yaml\Dumper();
 
-		return $writer->dump($this->data);
+		return $writer->dump($this->data, 2);
 	}
 
 	/**

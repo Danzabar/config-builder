@@ -152,7 +152,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 
 		$file->params()->test = 'value';
 
-		$this->fs->shouldReceive('dumpFile')->with(dirname(__DIR__) . '/Data/TestFiles/test.yml', '{ test: value }');
+		$this->fs->shouldReceive('dumpFile')->with(dirname(__DIR__) . '/Data/TestFiles/test.yml', "test: value\n");
 
 		$file->save();
 	}
