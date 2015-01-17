@@ -85,4 +85,40 @@ class ParamBagTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(Array('a' => 'b', 'c' => 'b', 'd' => 'c'), $p->all());
 	}
 
+	/**
+	 * Test the clear function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_clear()
+	{
+		$arr = Array('a' => 'b');
+
+		$p = new ParamBag($arr);
+
+		$p->clear();
+
+		$this->assertEquals(Array(), $p->all());
+	}
+
+	/**
+	 * Test unsetting value
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_unset()
+	{
+		$arr = Array('a' => 'b', 'c' => 'd');
+
+		$p = new ParamBag($arr);
+
+		$this->assertEquals('b', $p->a);
+	
+		unset($p->a);
+
+		$this->assertFalse(isset($p->a));
+	}
+
 } // END class ParamBagTest extends \PHPUnit_Framework_TestCase

@@ -69,6 +69,28 @@ class ParamBag
 	}
 
 	/**
+	 * Removes a value from the param bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function __unset($key)
+	{
+		unset($this->params[$key]);
+	}
+
+	/**
+	 * Removes everything from the bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function clear()
+	{
+		$this->params = Array();
+	}
+
+	/**
 	 * Returns the whole bag
 	 *
 	 * @return Array
