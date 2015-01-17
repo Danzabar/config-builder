@@ -94,4 +94,15 @@ class ParamBag
 		$this->params = json_decode($json, TRUE);
 	}
 
+	/**
+	 * Merge an array into the param bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function merge($arr)
+	{
+		$this->params = array_merge($this->params, $arr);
+	}
+
 } // END class ParamBag

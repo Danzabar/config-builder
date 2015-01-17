@@ -68,4 +68,21 @@ class ParamBagTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($rep, $p->test);
 	}
 
+	/**
+	 * Test the merge function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_merge()
+	{
+		$arr = Array('a' => 'b', 'c' => 'd');
+		$merge = Array('d' => 'c', 'c' => 'b');
+
+		$p = new ParamBag($arr);
+		$p->merge($merge);
+		
+		$this->assertEquals(Array('a' => 'b', 'c' => 'b', 'd' => 'c'), $p->all());
+	}
+
 } // END class ParamBagTest extends \PHPUnit_Framework_TestCase
