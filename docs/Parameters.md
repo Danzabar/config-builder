@@ -23,6 +23,17 @@ So once you've loaded a file, how do you use it? What exactly can you do with it
 	// We can perform a recursive search and replace on all the data
 	$file->params()->recursiveReplace('search', 'replace');
 
+	// We can also merge another array into the params
+	$file->params()->merge(Array());
+
+You can also backup a params using the `backup` method, then revert these changes if something goes wrong;
+
+	$file->params()->backup();
+
+	$file->params()->foo = 'new';
+
+	$file->params()->rollback();
+
 Once we are done with the params, simply calling the `ConfigFile` classes save method will convert the array back into its native format and write it to the file. 
 
 	$file->save();
