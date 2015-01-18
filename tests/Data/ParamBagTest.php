@@ -121,4 +121,40 @@ class ParamBagTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse(isset($p->a));
 	}
 
+	/**
+	 * Test a working backup
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_backups()
+	{
+		$array = Array('a' => 'b', 'c' => 'd');
+
+		$p = new ParamBag($array);
+		$p->backup();
+
+		$p->c = 'foo';
+
+		$this->assertEquals('foo', $p->c);
+
+		$p->rollback();
+
+		$this->assertEquals('d', $p->c);
+	}
+
+	/**
+	 * test an invalid backup
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_exceptionOnInvalidBackup()
+	{
+		$this->setExpectedException('Danzabar\Config\Exceptions\NoValidBackup');
+		$p = new ParamBag(Array());
+
+		$p->rollback();
+	}
+
 } // END class ParamBagTest extends \PHPUnit_Framework_TestCase

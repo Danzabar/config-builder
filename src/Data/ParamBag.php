@@ -20,6 +20,20 @@ class ParamBag
 	protected $params;
 
 	/**
+	 * An associative array used to backup the params state
+	 *
+	 * @var Array
+	 */
+	protected $backup;
+
+	/**
+	 * Flag to state whether a backup has been made
+	 *
+	 * @var Boolean
+	 */
+	protected $hasBackup = FALSE;
+
+	/**
 	 * Load the first set of data
 	 *
 	 * @return void
@@ -125,6 +139,37 @@ class ParamBag
 	public function merge($arr)
 	{
 		$this->params = array_merge($this->params, $arr);
+	}
+
+	/**
+	 * Saves the state of the param bag so it can be reverted
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function backup()
+	{
+		$this->backup = $this->params;
+
+		$this->hasBackup = TRUE;
+	}
+
+	/**
+	 * Uses the backup array to revert the params array
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function rollback()
+	{
+		if($this->hasBackup)
+		{
+			$this->params = $this->backup;
+
+		} else
+		{
+			throw new Exceptions\NoValidBackup($this->params);
+		}	
 	}
 
 } // END class ParamBag
