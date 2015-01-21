@@ -96,6 +96,9 @@ class MergerTest extends \PHPUnit_Framework_TestCase
 		$merge
 			->load($this->master, $this->slave)
 			->merge();
+
+		$this->assertInstanceOf('Danzabar\Config\Files\ConfigFile', $merge->getMaster());
+		$this->assertInstanceOf('Danzabar\Config\Files\ConfigFile', $merge->getSlave());
 	}
 
 	/**
