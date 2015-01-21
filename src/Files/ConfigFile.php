@@ -121,6 +121,17 @@ class ConfigFile
 
 		$this->params = $this->extracter->params();
 	}
+
+	/**
+	 * Re-loads the file after saves
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function refresh()
+	{
+		$this->load($this->file);
+	}
 	
 	/**
 	 * Saves the current params to the file

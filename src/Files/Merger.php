@@ -129,5 +129,27 @@ class Merger
 		$this->slave->save();
 	}
 
+	/**
+	 * Returns the master file
+	 *
+	 * @return ConfigFile
+	 * @author Dan Cox
+	 */
+	public function getMaster()
+	{
+		return $this->master;
+	}
+
+	/**
+	 * Returns the slave file
+	 *
+	 * @return ConfigFile
+	 * @author Dan Cox
+	 */
+	public function getSlave()
+	{	
+		return $this->slave;
+	}
+
 
 } // END class Merger

@@ -126,5 +126,4 @@ class MergerTest extends \PHPUnit_Framework_TestCase
 		$merge->restore();
 	}
 
-
 } // END class MergerTest extends \PHPUnit_Framework_TestCase
