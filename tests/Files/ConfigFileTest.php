@@ -200,4 +200,22 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 			
 	}
 
+	/**
+	 * Test converting a yml to json file. 
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_conversionToFormat()
+	{
+		$file = new ConfigFile($this->fs);
+		
+		$this->fs->shouldReceive('exists')->andReturn(TRUE);
+		$this->fs->shouldReceive('dumpFile')->with(dirname(__DIR__) . '/Data/TestFiles/test.yml', "test: value\n");		
+
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.json');
+
+		$file->saveAs('yml');
+	}
+
 } // END class ConfigFileTest extends \PHPUnit_Framework_TestCase

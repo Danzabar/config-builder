@@ -78,7 +78,9 @@ class Extracter
 	{
 		$this->reader->read($this->file);
 
-		$this->converter->process($this->extension, $this->reader->getData());
+		$this->converter
+			 ->setExtension($this->extension)
+			 ->process($this->reader->getData());
 	}
 
 	/**

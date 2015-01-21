@@ -56,7 +56,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
 		$converter = new Converter($this->map);
 
-		$converter->process('test');
+		$converter->setExtension('test');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 		$this->map->shouldReceive('load')->andReturn($this->map);
 		$this->map->shouldReceive('toArray')->andReturn(Array('test' => 'var'));
 
-		$converter->process('json');
+		$converter->setExtension('json')->process();
 		$params = $converter->getParamBag();
 
 		$this->assertInstanceOf('Danzabar\Config\Data\ParamBag', $params);
@@ -91,7 +91,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 	public function test_instancesOf()
 	{
 		$converter = new Converter();
-		$converter->process('yml', 'test');
+		$converter->setExtension('yml')->process('test');
 
 		$this->assertInstanceOf('Danzabar\Config\Data\ParamBag', $converter->getParamBag());
 		$this->assertInstanceOf('Danzabar\Config\Data\ExtensionMap', $converter->getExtensionMap());
