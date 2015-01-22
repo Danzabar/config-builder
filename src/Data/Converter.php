@@ -54,27 +54,39 @@ class Converter
 	}
 
 	/**
+	 * Sets the extension
+	 *
+	 * @return Converter
+	 * @author Dan Cox
+	 */
+	public function setExtension($ext)
+	{
+		$this->extension = $ext;
+
+		if(!$this->extensionMap->has($ext))
+		{
+			throw new Exceptions\InvalidExtension($ext);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Loads an extension class to convert the data to an array and pass it back as a param bag
 	 *
 	 * @return ParamBag
 	 * @author Dan Cox
 	 */
-	public function process($extension, $data = '')
+	public function process($data = '')
 	{
-		$this->extension = $extension;
 		$this->data = $data;
 
-		if($this->extensionMap->has($extension))
-		{
-			$ext = $this->extensionMap->get($extension);
-			$arr = $ext->load($data)->toArray();
+		$ext = $this->extensionMap->get($this->extension);
+		$arr = $ext->load($data)->toArray();
 
-			$this->paramBag = new ParamBag($arr);
+		$this->paramBag = new ParamBag($arr);
 
-			return true;
-		}
-
-		throw new Exceptions\InvalidExtension($extension);
+		return true;
 	}
 
 	/**

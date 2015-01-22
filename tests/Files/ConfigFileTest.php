@@ -176,4 +176,46 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 		$file->delete();
 	}
 
+	/**
+	 * Test the refresh function by loading a real file, changing params and hitting the refresh param
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_refresh()
+	{
+		$file = new ConfigFile();
+
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.yml');
+
+		$this->assertTrue(isset($file->params()->test));
+		$this->assertEquals(Array('this', 'is', 'a', 'test'), $file->params()->test);
+
+		$file->params()->test = 'foo';
+
+		$file->refresh();
+
+		$this->assertTrue(isset($file->params()->test));
+		$this->assertEquals(Array('this', 'is', 'a', 'test'), $file->params()->test);
+			
+	}
+
+	/**
+	 * Test converting a yml to json file. 
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_conversionToFormat()
+	{
+		$file = new ConfigFile($this->fs);
+		
+		$this->fs->shouldReceive('exists')->andReturn(TRUE);
+		$this->fs->shouldReceive('dumpFile')->with(dirname(__DIR__) . '/Data/TestFiles/test.yml', "test: value\n");		
+
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.json');
+
+		$file->saveAs('yml');
+	}
+
 } // END class ConfigFileTest extends \PHPUnit_Framework_TestCase

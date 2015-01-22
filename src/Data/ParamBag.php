@@ -20,6 +20,20 @@ class ParamBag
 	protected $params;
 
 	/**
+	 * An associative array used to backup the params state
+	 *
+	 * @var Array
+	 */
+	protected $backup;
+
+	/**
+	 * Flag to state whether a backup has been made
+	 *
+	 * @var Boolean
+	 */
+	protected $hasBackup = FALSE;
+
+	/**
 	 * Load the first set of data
 	 *
 	 * @return void
@@ -69,6 +83,28 @@ class ParamBag
 	}
 
 	/**
+	 * Removes a value from the param bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function __unset($key)
+	{
+		unset($this->params[$key]);
+	}
+
+	/**
+	 * Removes everything from the bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function clear()
+	{
+		$this->params = Array();
+	}
+
+	/**
 	 * Returns the whole bag
 	 *
 	 * @return Array
@@ -92,6 +128,48 @@ class ParamBag
 		$json = str_replace($search, $replace, $json);
 
 		$this->params = json_decode($json, TRUE);
+	}
+
+	/**
+	 * Merge an array into the param bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function merge($arr)
+	{
+		$this->params = array_merge($this->params, $arr);
+	}
+
+	/**
+	 * Saves the state of the param bag so it can be reverted
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function backup()
+	{
+		$this->backup = $this->params;
+
+		$this->hasBackup = TRUE;
+	}
+
+	/**
+	 * Uses the backup array to revert the params array
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function rollback()
+	{
+		if($this->hasBackup)
+		{
+			$this->params = $this->backup;
+
+		} else
+		{
+			throw new Exceptions\NoValidBackup($this->params);
+		}	
 	}
 
 } // END class ParamBag

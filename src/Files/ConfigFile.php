@@ -121,6 +121,56 @@ class ConfigFile
 
 		$this->params = $this->extracter->params();
 	}
+
+	/**
+	 * Re-loads the file after saves
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function refresh()
+	{
+		$this->load($this->file);
+	}
+
+	/**
+	 * Save as a different extension
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function saveAs($extension = NULL)
+	{
+		$extension = (!is_null($extension) ? $extension : $this->extension);
+
+		$converter = $this->extracter->converter();
+		$converter->setExtension($extension);
+		$data = $converter->toNative($this->params);
+	
+		// We need to rename the file's extension
+		$this->rename(NULL, $extension);
+
+		$this->fs->dumpFile($this->file, $data);	
+	}
+
+	/**
+	 * Renames a file or changes files extension
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function rename($file = NULL, $extension = NULL)
+	{
+		if(!is_null($file))
+		{
+			$this->file = str_replace($this->filename, $file, $this->file);
+		}
+
+		if(!is_null($extension))
+		{
+			$this->file = str_replace(".".$this->extension, '.'.$extension, $this->file);	
+		}
+	}
 	
 	/**
 	 * Saves the current params to the file
