@@ -22,6 +22,14 @@ This will be loaded in the ParamBag instance and you could use this like:
 
 Theres more documentation on the ParamBag class with gives you a better insight into its uses, check out the docs folder for more info.
 
+## Saving into different formats
+
+You can now save a file as a different format using the `saveAs` method, this will convert the data and save the file with the correct extension.
+
+	$file->saveAs('json');
+	
+	$file->saveAs('yml');
+
 ## Deleting a file
 
 You can delete a file too, just use the `delete` method on the instance of `ConfigFile`

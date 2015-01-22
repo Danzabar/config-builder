@@ -14,6 +14,7 @@ With a new version comes new documentation.
  - [Loading a config file](https://github.com/Danzabar/config-builder/blob/master/docs/LoadingAFile.md)
  - [Creating a config file](https://github.com/Danzabar/config-builder/blob/master/docs/CreatingAFile.md)
  - [Using Parameters](https://github.com/Danzabar/config-builder/blob/master/docs/Parameters.md) 
+ - [Merging file data](https://github.com/Danzabar/config-builder/blob/master/docs/MergingTwoConfigFiles.md)
  - [Extensions](https://github.com/Danzabar/config-builder/blob/master/docs/ExtensionClasses.md)
 
 ## The Future
