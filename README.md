@@ -17,12 +17,9 @@ With a new version comes new documentation.
  - [Merging file data](https://github.com/Danzabar/config-builder/blob/master/docs/MergingTwoConfigFiles.md)
  - [Extensions](https://github.com/Danzabar/config-builder/blob/master/docs/ExtensionClasses.md)
 
-## The Future
+## New Features
 
-I will be adding the following features, If you'd like some functionality added, then write it up as a suggest and post an issue for it, or fork this repo and add it yourself;
-	
- - Merging configuration files
- - Converting the format of a configuration file
+If you have any suggestions for new features, please let me know. Create an issue for them or better yet, add them yourself!
 
 ## Contributing
 
