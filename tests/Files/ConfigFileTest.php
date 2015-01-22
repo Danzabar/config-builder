@@ -218,4 +218,24 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 		$file->saveAs('yml');
 	}
 
+	/**
+	 * Test the renaming file function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_renameFile()
+	{
+		$file = new ConfigFile($this->fs);
+
+		$this->fs->shouldReceive('exists')->andReturn(TRUE);
+		$this->fs->shouldReceive('dumpFile')->with(dirname(__DIR__) . '/Data/TestFiles/newName.yml', "{ }");
+
+		$file->load(dirname(__DIR__) . '/Data/TestFiles/test.yml');
+
+		$file->params()->clear();
+		$file->rename('newName');
+		$file->save();
+	}
+
 } // END class ConfigFileTest extends \PHPUnit_Framework_TestCase

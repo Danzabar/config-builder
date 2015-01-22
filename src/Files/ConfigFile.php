@@ -163,7 +163,7 @@ class ConfigFile
 	{
 		if(!is_null($file))
 		{
-			$this->file = str_replace($this->filename, $file, $this->file);
+			$this->file = str_replace($this->filename, $file.'.'.$this->extension, $this->file);
 		}
 
 		if(!is_null($extension))
