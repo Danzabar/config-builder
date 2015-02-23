@@ -36,6 +36,20 @@ class ParamBagTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test replacing all params with an array after init
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_replaceAllParams()
+	{
+		$p = new ParamBag(Array('test' => 'value'));
+
+		$p->load(Array('foo' => 'bar'));
+		$this->assertEquals(Array('foo' => 'bar'), $p->all());
+	}
+
+	/**
 	 * Test that an exception is thrown for a wrong key access
 	 *
 	 * @return void

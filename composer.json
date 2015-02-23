@@ -1,6 +1,6 @@
 {
 	"name":"danzabar/config",
-	"description": "A set of classes that can be used to quickly raise and search through config files of several formats.",
+	"description": "Build Configuration Files, Search, Merge, Replace, Save, Convert Config files... Supports YML, JSON, but is also extendable.",
 	"license":"MIT",
 	"authors": [
 		{

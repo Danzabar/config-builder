@@ -45,6 +45,17 @@ class ParamBag
 	}
 
 	/**
+	 * Loads an array to replace its full param array
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function load(Array $data = Array())
+	{
+		$this->params = $data;
+	}
+
+	/**
 	 * Return the desired var inside the Params array
 	 *
 	 * @return void

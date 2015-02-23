@@ -85,6 +85,24 @@ class ConfigFile
 	} 
 
 	/**
+	 * Attempts loading a file, if its not there, it create its.
+	 *
+	 * @return ConfigFile
+	 * @author Dan Cox
+	 */
+	public function init($file)
+	{
+		try {
+			
+			$this->load($file);
+
+		} catch (Exceptions\FileNotExists $e) {
+
+			$this->create($file);
+		}
+	}
+
+	/**
 	 * Creates the file
 	 *
 	 * @return void

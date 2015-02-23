@@ -59,6 +59,58 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test the init function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_initLoad()
+	{
+		$config = new ConfigFile($this->fs, $this->infoMock, $this->extracter);
+
+		$this->fs->shouldReceive('exists')->with('test.yml')->andReturn(TRUE);
+		
+		$this->infoMock->shouldReceive('load')->with('test.yml')->andReturn($this->infoMock);
+		$this->infoMock->extension = 'yml';
+		$this->infoMock->filename = 'test';
+		$this->infoMock->directory = '/test/dir';
+		
+		$this->extracter->shouldReceive('load')->andReturn($this->extracter);
+		$this->extracter->shouldReceive('extract');
+		$this->extracter->shouldReceive('params')->andReturn($this->extracter);
+
+		$config->init('test.yml');
+	}
+
+	/**
+	 * Test an init that requires a creation
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_initCreate()
+	{	
+		$config = new ConfigFile($this->fs, $this->infoMock, $this->extracter);
+
+		$this->fs->shouldReceive('exists')->with('test.yml')->Once()->andReturn(FALSE);
+		$this->fs->shouldReceive('dumpFile');
+
+		$this->fs->shouldReceive('exists')->with('test.yml')->Once()->andReturn(TRUE);
+	
+		$this->infoMock->shouldReceive('load')->with('test.yml')->andReturn($this->infoMock);
+		$this->infoMock->extension = 'yml';
+		$this->infoMock->filename = 'test';
+		$this->infoMock->directory = '/test/dir';
+		
+		$this->extracter->shouldReceive('load')->andReturn($this->extracter);
+		$this->extracter->shouldReceive('extract');
+		$this->extracter->shouldReceive('params')->andReturn($this->extracter);
+
+
+		$config->init('test.yml');
+	}
+
+	/**
 	 * Test that the correct vars are injected
 	 *
 	 * @return void
