@@ -8,6 +8,9 @@ So once you've loaded a file, how do you use it? What exactly can you do with it
 	// Now that the file has been loaded we have access to a ParamBag instance
 	$file->params();
 
+	// Load an array into the params
+	$file->load(Array());
+
 	// We can set new values
 	$file->params()->foo = 'bar';
 
@@ -16,6 +19,9 @@ So once you've loaded a file, how do you use it? What exactly can you do with it
 
 	// We can get check for set values
 	isset($file->params()->bar) // false
+
+	// unset a param
+	unset($file->params()->bar)
 
 	// We can get the params array back
 	$file->params()->all();

@@ -37,3 +37,9 @@ You can delete a file too, just use the `delete` method on the instance of `Conf
 	$file->delete();
 
 Tip: after deleting a file, the files params remain, if you was to use the `save` method the file would remain.
+
+## The init function
+
+The init function can be used to attempt to load a function first and create it if it does not exist, you use this in the same fashion as the load function
+	
+	$config->init('/path/to/file.yml');
