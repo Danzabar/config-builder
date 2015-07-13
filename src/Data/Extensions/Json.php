@@ -11,14 +11,12 @@ use Danzabar\Config\Data\Extensions\ExtensionInterface;
  */
 class Json Implements ExtensionInterface
 {
-	
 	/**
 	 * An array containing the raw data
 	 *
 	 * @var array|json
 	 */
 	protected $data;
-	
 
 	/**
 	 * Loads the data.
@@ -41,7 +39,7 @@ class Json Implements ExtensionInterface
 	 */
 	public function toNative()
 	{
-		return json_encode( $this->data, JSON_PRETTY_PRINT);
+		return json_encode($this->data, JSON_PRETTY_PRINT);
 	}
 
 	/**

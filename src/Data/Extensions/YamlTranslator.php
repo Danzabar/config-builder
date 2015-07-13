@@ -12,14 +12,12 @@ use Symfony\Component\Yaml,
  */
 class YamlTranslator implements ExtensionInterface
 {
-	
 	/**
 	 * An array of data or YAML string
 	 *
 	 * @var Mixed
 	 */
 	protected $data;
-	
 
 	/**
 	 * Loads the data
@@ -88,5 +86,4 @@ class YamlTranslator implements ExtensionInterface
 	{
 		return Yaml\Yaml::parse($this->data);
 	}
-
 } // END class Yaml implements Translator

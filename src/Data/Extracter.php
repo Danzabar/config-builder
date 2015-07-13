@@ -41,7 +41,6 @@ class Extracter
 	 */
 	protected $extension;
 
-	
 	/**
 	 * Load dependencies
 	 *
@@ -104,5 +103,4 @@ class Extracter
 	{
 		return $this->converter;
 	}
-
 } // END class Extracter

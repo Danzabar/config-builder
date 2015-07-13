@@ -11,7 +11,6 @@ use Danzabar\Config\Files\ConfigFile;
  */
 class Merger
 {
-
 	/**
 	 * The master file
 	 *
@@ -150,6 +149,4 @@ class Merger
 	{	
 		return $this->slave;
 	}
-
-
 } // END class Merger

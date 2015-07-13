@@ -39,5 +39,4 @@ class AccessToInvalidKey extends \Exception
 	{
 		return $this->attemptedKey;
 	}
-
 } // END class AccessToInvalidKey extends \Exception

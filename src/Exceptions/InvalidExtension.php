@@ -39,5 +39,4 @@ class InvalidExtension extends \Exception
 	{
 		return $this->extension;
 	}
-
 } // END class InvalidExtensions extends \Exception
