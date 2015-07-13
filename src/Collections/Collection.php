@@ -131,20 +131,6 @@ class Collection
 	}
 
 	/**
-	 * Adds a date filter on the finder
-	 *
-	 * @param String $date - A date string that can be used by strtotime
-	 * @return Collection
-	 * @author Dan Cox
-	 */
-	public function whereDate($date)
-	{
-		$this->finder->date($date);
-
-		return $this;
-	}
-
-	/**
 	 * Excludes the directory using the finder
 	 *
 	 * @param String $directory

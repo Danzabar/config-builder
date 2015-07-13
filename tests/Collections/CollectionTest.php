@@ -92,4 +92,19 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(0, count($result2));
 	}
 
+	/**
+	 * Test basic get and set on Directory and Finder vars
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_getSet()
+	{
+		$collection = new Collection();
+		$collection->setDirectory(__DIR__);
+
+		$this->assertInstanceOf('Symfony\Component\Finder\Finder', $collection->finder());
+		$this->assertEquals(__DIR__, $collection->getDirectory());
+	}
+
 } // END class CollectionTest extends \PHPUnit_Framework_TestCase
