@@ -44,6 +44,17 @@ class ExtensionMap
 	}
 
 	/**
+	 * Returns the key values for all registered extensions
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function getRegisteredExtensionNames()
+	{
+		return array_keys(static::$bindings);
+	}
+
+	/**
 	 * Checks if we have a binding for the given extension
 	 *
 	 * @return Boolean
