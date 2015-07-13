@@ -85,7 +85,7 @@ class Collection
 
 		$this->extensionMap = new ExtensionMap();
 		$this->extensions = $this->extensionMap->getRegisteredExtensionNames();
-
+		$this->finder->files();
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Collection
 			return in_array($file->getExtension(), $this->extensions);
 		};
 
-		$this->finder->filter($filter);
+		$this->filter($filter);
 	}
 
 	/**
@@ -113,9 +113,101 @@ class Collection
 	 */
 	public function all()
 	{	
-		$this->finder->files()->in($this->directory);
+		return $this->fetch();
+	}
 
-		$this->filter();
+	/**
+	 * Filters down the finder by specifing a second directory
+	 *
+	 * @param String $directory
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function whereIn($directory)
+	{	
+		$this->finder->in($directory);
+
+		return $this;
+	}
+
+	/**
+	 * Adds a date filter on the finder
+	 *
+	 * @param String $date - A date string that can be used by strtotime
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function whereDate($date)
+	{
+		$this->finder->date($date);
+
+		return $this;
+	}
+
+	/**
+	 * Excludes the directory using the finder
+	 *
+	 * @param String $directory
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function excludeDir($directory)
+	{
+		$this->finder->exclude($directory);
+
+		return $this;
+	}
+
+	/**
+	 * Excludes the name from the search
+	 *
+	 * @param String $keyword
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function exclude($keyword)
+	{
+		$this->finder->notName($keyword);
+
+		return $this;
+	}
+
+	/**
+	 * Adds custom filter to the finder
+	 *
+	 * @param Callable $filterCallback
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function filter($filterCallback)
+	{
+		$this->finder->filter($filterCallback);
+
+		return $this;
+	}
+
+	/**
+	 * Fetches results of current instance of the finder
+	 *
+	 * @return CollectionResults
+	 * @author Dan Cox
+	 */
+	public function fetch()
+	{
+		$this->filterByExtension();
+
+		$results = Array();
+
+		foreach ($this->finder as $file)
+		{
+			$config = new ConfigFile($this->fs, $this->fileInfo, $this->extracter);
+			$config->load($file->getRealPath());
+			$results[] = $config;
+		}
+
+		$this->finder = new Finder();
+
+		return new CollectionResults($results);
 	}
 
 	/**
@@ -128,6 +220,9 @@ class Collection
 	public function setDirectory($directory)
 	{
 		$this->directory = $directory;
+
+		// Set the finder to use this directory as well
+		$this->finder->in($directory);
 
 		return $this;
 	}
@@ -143,5 +238,15 @@ class Collection
 		return $this->directory;
 	}
 
+	/**
+	 * Returns the instanced finder
+	 *
+	 * @return \Symfony\Component\Finder\Finder
+	 * @author Dan Cox
+	 */
+	public function finder()
+	{	
+		return $this->finder;
+	}
 
 } // END class Collection
