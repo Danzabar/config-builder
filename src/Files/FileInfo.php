@@ -43,5 +43,4 @@ class FileInfo
 		$this->extension = $details['extension'];
 		$this->directory = $details['dirname'];
 	}
-
 } // END class FileInfo

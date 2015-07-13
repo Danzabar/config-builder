@@ -39,5 +39,4 @@ class FileNotExists extends \Exception
 	{
 		return $this->filename;
 	}
-
 } // END class FileNotExists extends \Exception

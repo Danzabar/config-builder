@@ -8,7 +8,6 @@
  */
 interface ExtensionInterface
 {
-	
 	/**
 	 * Loads the mixed data
 	 *
@@ -24,7 +23,6 @@ interface ExtensionInterface
 	 * @author Dan Cox
 	 */
 	public function validate();
-	
 
 	/**
 	 * Translates the data into the native format.
@@ -34,7 +32,6 @@ interface ExtensionInterface
 	 */
 	public function toNative();
 
-
 	/**
 	 * Translates native format back to an Array
 	 *
@@ -43,7 +40,6 @@ interface ExtensionInterface
 	 */
 	public function toArray();
 	
-	
 	/**
 	 * Validates the native format
 	 *
@@ -51,5 +47,4 @@ interface ExtensionInterface
 	 * @author Dan Cox
 	 */
 	public function validateArray();
-	
 }

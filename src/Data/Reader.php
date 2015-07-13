@@ -49,6 +49,8 @@ class Reader
 	 *
 	 * @return Reader
 	 * @author Dan Cox
+     *
+     * @throws Exceptions\FileNotExists
 	 */
 	public function read($file)
 	{
@@ -97,5 +99,4 @@ class Reader
 	{
 		return $this->fs;
 	}
-
 } // END class Reader

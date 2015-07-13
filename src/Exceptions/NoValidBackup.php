@@ -39,5 +39,4 @@ class NoValidBackup extends \Exception
 	{
 		return $this->params;
 	}
-
 } // END class NoValidBackup extends \Exception

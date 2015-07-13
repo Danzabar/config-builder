@@ -120,6 +120,8 @@ class ConfigFile
 	 *
 	 * @return ConfigFile
 	 * @author Dan Cox
+     *
+     * @throws Exceptions\FileNotExists
 	 */
 	public function load($file)
 	{
@@ -189,7 +191,7 @@ class ConfigFile
 			$this->file = str_replace(".".$this->extension, '.'.$extension, $this->file);	
 		}
 	}
-	
+
 	/**
 	 * Saves the current params to the file
 	 *
@@ -258,6 +260,4 @@ class ConfigFile
 	{
 		return $this->fs;
 	}
-
-	
 } // END class ConfigFile
