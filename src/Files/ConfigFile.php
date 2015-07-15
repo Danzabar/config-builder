@@ -181,15 +181,10 @@ class ConfigFile
 	 */
 	public function rename($file = NULL, $extension = NULL)
 	{
-		if(!is_null($file))
-		{
-			$this->file = str_replace($this->filename, $file.'.'.$this->extension, $this->file);
-		}
+		$target = (!is_null($file) ? $this->filename : $this->extension);
+		$replacement = (!is_null($file) ? $file : $extension);
 
-		if(!is_null($extension))
-		{
-			$this->file = str_replace(".".$this->extension, '.'.$extension, $this->file);	
-		}
+		$this->file = str_replace($target, $replacement, $this->file);
 	}
 
 	/**
