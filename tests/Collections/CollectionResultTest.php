@@ -21,10 +21,12 @@ class CollectionResultTest extends \PHPUnit_Framework_TestCase
 	{
 		$res = new CollectionResults(['foo' => 'bar' ]);
 		$res['test'] = 'value';
+		$res[] = 'zim';
 
 		$this->assertTrue(isset($res['foo']));
 		$this->assertEquals('bar', $res['foo']);
 		$this->assertEquals('value', $res['test']);
+		$this->assertEquals('zim', $res[0]);
 
 		unset($res['foo']);
 
