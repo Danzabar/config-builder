@@ -60,8 +60,8 @@ class ParamBag
 	 *
 	 * @return void
 	 * @author Dan Cox
-     *
-     * @throws Exceptions\AccessToInvalidKey
+	 *
+	 * @throws Exceptions\AccessToInvalidKey
 	 */
 	public function __get($key)
 	{
@@ -172,8 +172,8 @@ class ParamBag
 	 *
 	 * @return void
 	 * @author Dan Cox
-     *
-     * @throws Exceptions\NoValidBackup
+	 *
+	 * @throws Exceptions\NoValidBackup
 	 */
 	public function rollback()
 	{
