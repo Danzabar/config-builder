@@ -83,6 +83,17 @@ class Collection
 		$this->fileInfo = (!is_null($fileInfo) ? $fileInfo : new FileInfo);
 		$this->extracter = (!is_null($extracter) ? $extracter : new Extracter);
 
+		$this->registerStandardObjects();
+	}
+
+	/**
+	 * Registers the extension map and sets the finder to look for files
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function registerStandardObjects()
+	{
 		$this->extensionMap = new ExtensionMap();
 		$this->extensions = $this->extensionMap->getRegisteredExtensionNames();
 		$this->finder->files();
