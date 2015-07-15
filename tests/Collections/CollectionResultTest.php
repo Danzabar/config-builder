@@ -31,6 +31,7 @@ class CollectionResultTest extends \PHPUnit_Framework_TestCase
 		unset($res['foo']);
 
 		$this->assertFalse(isset($res['foo']));
+		$this->assertTrue($res->valid('test'));
 	}
 
 	/**
