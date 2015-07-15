@@ -49,8 +49,8 @@ class Reader
 	 *
 	 * @return Reader
 	 * @author Dan Cox
-     *
-     * @throws Exceptions\FileNotExists
+	 *
+	 * @throws Exceptions\FileNotExists
 	 */
 	public function read($file)
 	{

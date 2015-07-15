@@ -120,8 +120,8 @@ class ConfigFile
 	 *
 	 * @return ConfigFile
 	 * @author Dan Cox
-     *
-     * @throws Exceptions\FileNotExists
+	 *
+	 * @throws Exceptions\FileNotExists
 	 */
 	public function load($file)
 	{
