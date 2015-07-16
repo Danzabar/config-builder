@@ -18,28 +18,28 @@ class ConfigFile
 	/**
 	 * Instance of the file system class
 	 *
-	 * @var Object
+	 * @var \Symfony\Component\Filesystem\Filesystem
 	 */
 	protected $fs;
 
 	/**
 	 * An instance of the file info class
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Files\FileInfo
 	 */
 	protected $info;
 
 	/**
 	 * Extracter object
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Data\Extracter
 	 */
 	protected $extracter;
 
 	/**
 	 * Instance of the param bag
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Data\ParamBag
 	 */
 	protected $params;
 
@@ -74,7 +74,9 @@ class ConfigFile
 	/**
 	 * Set up dependencies
 	 *
-	 * @return void
+	 * @param \Symfony\Component\Filesystem\Filesystem $fs
+	 * @param \Danzabar\Config\Files\FileInfo $fileInfo
+	 * @param \Danzabar\Config\Data\Extracter $extracter
 	 * @author Dan Cox
 	 */
 	public function __construct($fs = NULL, $fileInfo = NULL, $extracter = NULL)
@@ -87,6 +89,7 @@ class ConfigFile
 	/**
 	 * Attempts loading a file, if its not there, it create its.
 	 *
+	 * @param String $file
 	 * @return ConfigFile
 	 * @author Dan Cox
 	 */
@@ -105,6 +108,7 @@ class ConfigFile
 	/**
 	 * Creates the file
 	 *
+	 * @param String $file
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -118,6 +122,7 @@ class ConfigFile
 	/**
 	 * Loads the file and its details
 	 *
+	 * @param String $file
 	 * @return ConfigFile
 	 * @author Dan Cox
 	 *
@@ -156,6 +161,7 @@ class ConfigFile
 	/**
 	 * Save as a different extension
 	 *
+	 * @param String $extension
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -176,6 +182,8 @@ class ConfigFile
 	/**
 	 * Renames a file or changes files extension
 	 *
+	 * @param String $file
+	 * @param String $extension
 	 * @return void
 	 * @author Dan Cox
 	 */

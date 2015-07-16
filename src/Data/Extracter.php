@@ -16,14 +16,14 @@ class Extracter
 	/**
 	 * Instance of the converter class
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Data\Converter
 	 */
 	protected $converter;
 
 	/**
 	 * Instance of the reader class
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Data\Reader
 	 */
 	protected $reader;
 
@@ -44,7 +44,8 @@ class Extracter
 	/**
 	 * Load dependencies
 	 *
-	 * @return void
+	 * @param \Danzabar\Config\Data\Converter $converter
+	 * @param \Danzabar\Config\Data\Reader $reader
 	 * @author Dan Cox
 	 */
 	public function __construct($converter = NULL, $reader = NULL)
@@ -56,6 +57,8 @@ class Extracter
 	/**
 	 * Load the file details
 	 *
+	 * @param String $file
+	 * @param String $extension
 	 * @return Extracter
 	 * @author Dan Cox
 	 */

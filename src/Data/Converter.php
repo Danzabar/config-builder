@@ -31,21 +31,21 @@ class Converter
 	/**
 	 * Instance of the extension map class
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Data\ExtensionMap
 	 */
 	protected $extensionMap;
 
 	/**
 	 * An instance of the parambag with values
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Data\ParamBag
 	 */
 	protected $paramBag;
 
 	/**
 	 * Set up class vars
 	 *
-	 * @return void
+	 * @param \Danzabar\Config\Data\ExtensionMap $map
 	 * @author Dan Cox
 	 */
 	public function __construct($map = NULL)
@@ -56,6 +56,7 @@ class Converter
 	/**
 	 * Sets the extension
 	 *
+	 * @param String $ext
 	 * @return Converter
 	 * @author Dan Cox
 	 */
@@ -74,6 +75,7 @@ class Converter
 	/**
 	 * Loads an extension class to convert the data to an array and pass it back as a param bag
 	 *
+	 * @param String $data
 	 * @return ParamBag
 	 * @author Dan Cox
 	 */
@@ -92,6 +94,7 @@ class Converter
 	/**
 	 * Converts the parambag instance of the native extension format
 	 *
+	 * @param \Danzabar\Config\Data\ParamBag $paramBag
 	 * @return Mixed
 	 * @author Dan Cox
 	 */

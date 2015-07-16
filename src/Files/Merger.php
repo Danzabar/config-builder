@@ -14,14 +14,14 @@ class Merger
 	/**
 	 * The master file
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Files\ConfigFile
 	 */
 	protected $master;
 
 	/**
 	 * The slave file
 	 *
-	 * @var Object
+	 * @var \Danzabar\Config\Files\ConfigFile
 	 */
 	protected $slave;
 
@@ -47,9 +47,11 @@ class Merger
 	protected $saveBackupBeforeMerge;
 
 	/**
-	 * undocumented function
+	 * Class constructor
 	 *
-	 * @return void
+	 * @param Boolean $autoSaveMaster
+	 * @param Boolean $saveBackupBeforeMerge
+	 * @param Boolean $deleteSlaveOnMerge
 	 * @author Dan Cox
 	 */
 	public function __construct($autoSaveMaster = TRUE, $saveBackupBeforeMerge = TRUE, $deleteSlaveOnMerge = FALSE)
@@ -62,6 +64,8 @@ class Merger
 	/**
 	 * Loads the master and slave files
 	 *
+	 * @param \Danzabar\Config\Files\ConfigFile $master
+	 * @param \Danzabar\Config\Files\ConfigFile $slave
 	 * @return Merger
 	 * @author Dan Cox
 	 */

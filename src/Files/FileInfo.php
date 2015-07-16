@@ -33,6 +33,7 @@ class FileInfo
 	/**
 	 * Gather Details
 	 *
+	 * @param String $file
 	 * @return void
 	 * @author Dan Cox
 	 */

@@ -36,7 +36,7 @@ class ParamBag
 	/**
 	 * Load the first set of data
 	 *
-	 * @return void
+	 * @param Array $data
 	 * @author Dan Cox
 	 */
 	public function __construct($data = Array())
@@ -47,6 +47,7 @@ class ParamBag
 	/**
 	 * Loads an array to replace its full param array
 	 *
+	 * @param Array $data
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -58,7 +59,8 @@ class ParamBag
 	/**
 	 * Return the desired var inside the Params array
 	 *
-	 * @return void
+	 * @param String $key
+	 * @return Mixed
 	 * @author Dan Cox
 	 *
 	 * @throws Exceptions\AccessToInvalidKey
@@ -76,6 +78,7 @@ class ParamBag
 	/**
 	 * Magic isset function
 	 *
+	 * @param String $key
 	 * @return Boolean
 	 * @author Dan Cox
 	 */
@@ -87,6 +90,8 @@ class ParamBag
 	/**
 	 * Magic setter
 	 *
+	 * @param String $key
+	 * @param Mixed $value
 	 * @return Void
 	 * @author Dan Cox
 	 */
@@ -98,6 +103,7 @@ class ParamBag
 	/**
 	 * Removes a value from the param bag
 	 *
+	 * @param String $key
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -131,6 +137,8 @@ class ParamBag
 	/**
 	 * Search and replace function for multi level arrays
 	 *
+	 * @param String $search
+	 * @param String $replace
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -146,6 +154,7 @@ class ParamBag
 	/**
 	 * Merge an array into the param bag
 	 *
+	 * @param Array $arr
 	 * @return void
 	 * @author Dan Cox
 	 */

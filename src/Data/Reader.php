@@ -22,7 +22,7 @@ class Reader
 	/**
 	 * Instance of the File System class
 	 *
-	 * @var Object
+	 * @var \Symfony\Component\Filesystem\Filesystem
 	 */
 	protected $fs;
 
@@ -36,7 +36,7 @@ class Reader
 	/**
 	 * Loads a file for reading
 	 *
-	 * @return void
+	 * @param \Symfony\Component\Filesystem\Filesystem $fs
 	 * @author Dan Cox
 	 */
 	public function __construct( $fs = NULL)
@@ -47,6 +47,7 @@ class Reader
 	/**
 	 * Read from the file
 	 *
+	 * @param String $file
 	 * @return Reader
 	 * @author Dan Cox
 	 *

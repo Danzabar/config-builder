@@ -70,7 +70,7 @@ class Collection
 	/**
 	 * Set up class dependencies
 	 *
-	 * @param \Syfmony\Component\Finder\Finder $finder
+	 * @param \Symfony\Component\Finder\Finder $finder
 	 * @param \Symfony\Component\Filesystem\Filesystem $fs
 	 * @param \Danzabar\Config\Files\FileInfo $fileInfo
 	 * @param \Danzabar\Config\Data\Extracter $extracter

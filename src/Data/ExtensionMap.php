@@ -23,7 +23,6 @@ class ExtensionMap
 	/**
 	 * Add the default extensions
 	 *
-	 * @return void
 	 * @author Dan Cox
 	 */
 	public function __construct()
@@ -35,6 +34,8 @@ class ExtensionMap
 	/**
 	 * Adds a new class instance binding
 	 *
+	 * @param String $extension
+	 * @param ExtensionInterface $classInstance 
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -57,6 +58,7 @@ class ExtensionMap
 	/**
 	 * Checks if we have a binding for the given extension
 	 *
+	 * @param String $extension
 	 * @return Boolean
 	 * @author Dan Cox
 	 */
@@ -68,6 +70,7 @@ class ExtensionMap
 	/**
 	 * Get one or all bindings
 	 *
+	 * @param String $extension
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
