@@ -19,6 +19,7 @@ class InvalidExtension extends \Exception
 	/**
 	 * Fire exception
 	 *
+	 * @param string $extension
 	 * @return void
 	 * @author Dan Cox
 	 */

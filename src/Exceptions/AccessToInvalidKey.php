@@ -19,6 +19,7 @@ class AccessToInvalidKey extends \Exception
 	/**
 	 * Fire exception
 	 *
+	 * @param string $key
 	 * @return void
 	 * @author Dan Cox
 	 */

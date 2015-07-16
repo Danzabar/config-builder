@@ -19,6 +19,7 @@ class FileNotExists extends \Exception
 	/**
 	 * Fire exception
 	 *
+	 * @param string $filename
 	 * @return void
 	 * @author Dan Cox
 	 */
